@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 import { validatePassword, validateDateOfBirth, validatePhone } from '../../utils/formUtils'
 import { setUserToken } from "../../reducers/loginReducer"
 import { STUDENT_LOGIN_TXT } from "../../texts"
+import '../../resources/styles/Login.css'
 
 export default function LoginPage() {
   const dispatch = useDispatch()
@@ -35,7 +36,7 @@ export default function LoginPage() {
 
   return (
     <div className="container">
-      <h4>{STUDENT_LOGIN_TXT}</h4>
+      <div className='welcome_message'>{STUDENT_LOGIN_TXT}</div>
       <form action="" onSubmit={handleSubmit} method="post">
         <div className="mb-3">
           <label htmlFor="email" className="form-label"><b>Email</b></label>

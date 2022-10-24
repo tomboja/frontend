@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { validatePassword, validateDateOfBirth, validatePhone } from '../../utils/formUtils'
-import { userSlice } from "../../reducers/loginReducer"
+import { setUserToken } from "../../reducers/loginReducer"
 import { STUDENT_LOGIN_TXT } from "../../texts"
 
 export default function LoginPage() {
@@ -29,7 +29,7 @@ export default function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Input data: ', userData)
-    dispatch(userSlice(userData))
+    dispatch(setUserToken(userData.email))
     setUserData(initialState)
   }
 

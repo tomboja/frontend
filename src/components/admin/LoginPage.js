@@ -36,19 +36,24 @@ export default function LoginPage() {
 
   return (
     <div className="container">
-      <div className='welcome_message'>{STUDENT_LOGIN_TXT}</div>
-      <form action="" onSubmit={handleSubmit} method="post">
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label"><b>Email</b></label>
-          <input onChange={setEmail} className="form-control" type="email" placeholder="Email" name="email" required value={userData.email} />
+      <h4>{STUDENT_LOGIN_TXT}</h4>
+      <form action="" onSubmit={handleSubmit} method="post" className="mx-auto border p-3 my-2">
+        <div className="row mb-3">
+          <label htmlFor="email" className="col-sm-2 col-form-label"><b>Email</b></label>
+          <div className="col-sm-10">
+            <input onChange={setEmail} className="form-control" type="email" placeholder="Email" name="email" required value={userData.email} />
+          </div>
         </div>
-        <div className="mb-3">
-          <label htmlFor="psw" className="form-label"><b>Password</b></label>
-          <input onChange={setPassword} className="form-control" type="password" placeholder="Password" name="psw" required value={userData.password} />
+        <div className="row mb-3">
+          <label htmlFor="psw" className="col-sm-2 col-form-label"><b>Password</b></label>
+          <div className="col-sm-10">
+            <input onChange={setPassword} className="form-control" type="password" placeholder="Password" name="psw" required value={userData.password} />
+          </div>
         </div>
 
-        <button type="submit" className="btn btn-primary">Login</button>
-      </form>
+                <button type="submit" className="btn btn-primary">Login</button>
+            </form>
+        </div>
     </div>
   )
 }

@@ -4,3 +4,15 @@
   font-weight: bolder;
   font-size: 36px;
 }
+
+.btn-prime {
+  color: #fff;
+  background-color: rgb(127, 176, 245);
+  border-color: rgb(127, 176, 245);
+}
+
+.btn-prime:hover {
+  color: #fff;
+  background-color: rgb(124, 160, 207);
+  border-color: rgb(124, 160, 207);
+}

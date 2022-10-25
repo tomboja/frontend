@@ -1,78 +1,83 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { validatePassword, validateDateOfBirth, validatePhone } from '../../utils/formUtils'
-import { setUserToken } from "../../reducers/loginReducer"
-import { STUDENT_LOGIN_TXT, STUDENT_LOGIN_FORM_HEADING } from "../../texts"
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setActiveUserData } from '../../reducers/loginReducer'
+import { STUDENT_LOGIN_TXT, STUDENT_LOGIN_FORM_HEADING, EMAIL, PASSWORD, ROLE, LOGIN } from '../../texts'
 import '../../resources/styles/Login.css'
+import { roleOptions } from '../../dataMapping'
 
 export default function LoginPage() {
   const dispatch = useDispatch()
   const initialState = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
+    role: roleOptions[0].value
   }
   const [userData, setUserData] = useState(initialState)
-  const roleOptions = ['ADMIN', 'STUDENT', 'REGISTRAR', 'FACULTY'];
 
   const setEmail = (e) => {
-    const email = e.target.value;
+    const email = e.target.value
     setUserData((oldData) => {
       return { ...oldData, email }
     })
   }
 
   const setPassword = (e) => {
-    const password = e.target.value;
+    const password = e.target.value
     setUserData((oldData) => {
       return { ...oldData, password }
     })
   }
 
   const setRole = (e) => {
-    const role = e.target.value;
+    const role = e.target.value
     setUserData((oldData) => {
       return { ...oldData, role }
     })
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Input data: ', userData)
-    dispatch(setUserToken(userData))
+    e.preventDefault()
+    dispatch(setActiveUserData(userData))
     setUserData(initialState)
   }
 
   return (
-    <div className="container">
-        <h4>{STUDENT_LOGIN_TXT}</h4>
-        <form className="row align-items-center w-50 border" action="" onSubmit={handleSubmit} method="post">
-            <h4>{STUDENT_LOGIN_FORM_HEADING}</h4>
-            <div className="row mb-3">
-                <label htmlFor="email" className="col-2 col-form-label"><b>Email</b></label>
-                <div className="col-6">
-                    <input onChange={setEmail} className="form-control" type="email" placeholder="Email" name="email" required value={userData.email} />
-                </div>
-            </div>
-            <div className="row mb-3">
-                <label htmlFor="psw" className="col-2 col-form-label"><b>Password</b></label>
-                <div className="col-6">
-                    <input onChange={setPassword} className="form-control" type="password" placeholder="Password" name="psw" required value={userData.password} />
-                </div>
-            </div>
-            <div className="row mb-3">
-                <label htmlFor="role" className="col-2 col-form-label"><b>Role</b></label>
-                <div className="col-6">
-                    <select onChange={setRole} className="form-select" name="role" required>
-                        {roleOptions.map(role => <option key={role} value={role}>{role}</option>)}
-                    </select>
-                </div>
-            </div>
-            <div className="row text-end mb-3">
-                <div className="col-8">
-                    <button type="submit" className="btn btn-prime">Login</button>
-                </div>
-            </div>
-        </form>
+    <div className='container'>
+      <h4>{STUDENT_LOGIN_TXT}</h4>
+      <form className='row border loginForm' onSubmit={handleSubmit}>
+        <h4>{STUDENT_LOGIN_FORM_HEADING}</h4>
+        <div className='row mb-6 loginField'>
+          <label htmlFor='email' className='col-2 col-form-label'>{EMAIL}</label>
+          <div className='col-6'>
+            <input onChange={setEmail} className='form-control' type='email' placeholder='Email' required value={userData.email} />
+          </div>
+        </div>
+        <div className='row mb-6 loginField'>
+          <label htmlFor='psw' className='col-2 col-form-label'>{PASSWORD}</label>
+          <div className='col-6'>
+            <input onChange={setPassword} className='form-control' type='password' placeholder='Password' required value={userData.password} />
+          </div>
+        </div>
+        <div className='row mb-6 loginField'>
+          <label htmlFor='role' className='col-2 col-form-label'>{ROLE}</label>
+          <div className='col-6'>
+            <select
+              onChange={setRole}
+              className='form-select'
+              name='role'
+              value={userData.role}>
+              {roleOptions.map(role => <option
+                key={role.label}
+                value={role.value}>{role.label}</option>)}
+            </select>
+          </div>
+        </div>
+        <div className='row text-end mb-3'>
+          <div className='col-8'>
+            <button type='button' className='btn btn-prime'>{LOGIN}</button>
+          </div>
+        </div>
+      </form>
     </div>
   )
 }

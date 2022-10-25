@@ -14,13 +14,14 @@ import AdminNav from "./navigationsMenus/StudentNav"
 
 const UserMenus = () => {
   const user = useSelector(state => state.activeUser)
+  console.log('User ', user)
 
   if (user.role === STUDENT_USER) return <></> // student sees these menu
   if (user.role === ADMIN_USER) return <AdminNav />
   if (user.role === FACULTY_USER) return <FacultyNav />
   if (user.role === REGISTRAR_USER) return <RegistrarNav />
   else return <DefaultNav />
-  
+
 }
 
 export default UserMenus

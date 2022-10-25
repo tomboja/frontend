@@ -7,12 +7,22 @@
 
 .btn-prime {
   color: #fff;
-  background-color: rgb(127, 176, 245);
-  border-color: rgb(127, 176, 245);
+  background-color: rgb(108, 163, 240);
+  border-color: rgb(115, 167, 241);
 }
 
 .btn-prime:hover {
   color: #fff;
-  background-color: rgb(124, 160, 207);
-  border-color: rgb(124, 160, 207);
+  background-color: rgb(135, 180, 238);
+  border-color: rgb(119, 170, 236);
+}
+
+.loginForm {
+  margin-top: 4rem;
+  padding: 3rem;
+  width: 90%;
+}
+
+.loginField {
+  margin-bottom: 1rem;
 }

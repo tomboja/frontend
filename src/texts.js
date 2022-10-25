@@ -24,6 +24,7 @@ export const SUBMIT = 'Submit'
 export const LOGIN = 'Login'
 
 export const ERROR_DURING_LOGIN = 'Error logging to the system. Try again'
+export const ERROR_DURING_REGISTER = 'Error registering. Please Try again'
 
 export const FIRST_NAME = 'First Name'
 export const LAST_NAME = 'Last Name'

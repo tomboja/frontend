@@ -15,5 +15,5 @@ export const validateDateOfBirth = (dobStr) => {
 }
 
 export const validatePhone = (phone) => {
-  return phone.match(/[\D]/) !== null;
+  return phone.match(/[0-9]{10}/);
 }

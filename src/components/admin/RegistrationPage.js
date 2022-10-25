@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { validatePassword, validateDateOfBirth, validatePhone } from '../../utils/formUtils'
 import { saveUser } from '../../reducers/userReducer'
-import { ADDMISSION_DATE, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, STUDENT_REGISTRATION_TXT, USER_ID } from '../../texts'
+import { ADDMISSION_DATE, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, STUDENT_REGISTRATION_TXT, USER_ID, ERROR_DURING_REGISTER } from '../../texts'
 import { createUser } from '../../api/loginAPIs'
 
 const RegistrationPage = () => {
@@ -18,7 +18,9 @@ const RegistrationPage = () => {
     password: '',
     confirmPassword: ''
   }
+  
   const [userData, setUserData] = useState(initialState)
+  const [errors, setErrors] = useState([])
 
   const setFirstName = (e) => {
     const firstName = e.target.value;
@@ -88,29 +90,23 @@ const RegistrationPage = () => {
     //console.log('Input data: ', userData)
     
     if (!validateDateOfBirth(userData.dateOfBirth)) {
-      alert("Date of Birth is too recent - Age must be greater than 15")
-      return
+      setErrors([...errors,"Date of Birth is too recent - Age must be greater than 15"])
     }
 
     if (!validatePhone(userData.phone)) {
-      alert("Invalid Phone number - Non-numeric characters detected")
-      return
-    }
-
-    if (!validatePhone(userData.phone)) {
-      alert("Invalid Phone number - Non-numeric characters detected")
-      return
+      setErrors([...errors,"Invalid Phone number - Non-numeric characters detected"])
     }
 
     if (!validatePassword(userData.password, userData.confirmPassword)) {
-      alert("Passwords do not match!")
-      return
+      setErrors([...errors,"Passwords do not match!"])
     }
     const result = await createUser(userData)
     // console.log('Input data: ', userData)
     dispatch(saveUser(userData))
     setUserData(initialState)
   }
+
+  const errorSection = errors.length > 0 ? <ul>{errors.map(err => <li key={err} className='error_message'>{err}</li>)}</ul> : ''
 
   return (
     <div className='container'>
@@ -233,10 +229,10 @@ const RegistrationPage = () => {
             required
             value={userData.confirmPassword} />
         </div>
-
+        {errorSection}
         <button
           type='submit'
-          className='btn btn-primary'>{REGISTER}</button>
+          className='btn btn-prime'>{REGISTER}</button>
       </form>
     </div>
   )

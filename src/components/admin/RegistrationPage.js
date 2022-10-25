@@ -85,8 +85,29 @@ const RegistrationPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Input data: ', userData)
+    //console.log('Input data: ', userData)
+    
+    if (!validateDateOfBirth(userData.dateOfBirth)) {
+      alert("Date of Birth is too recent - Age must be greater than 15")
+      return
+    }
+
+    if (!validatePhone(userData.phone)) {
+      alert("Invalid Phone number - Non-numeric characters detected")
+      return
+    }
+
+    if (!validatePhone(userData.phone)) {
+      alert("Invalid Phone number - Non-numeric characters detected")
+      return
+    }
+
+    if (!validatePassword(userData.password, userData.confirmPassword)) {
+      alert("Passwords do not match!")
+      return
+    }
     const result = await createUser(userData)
+    // console.log('Input data: ', userData)
     dispatch(saveUser(userData))
     setUserData(initialState)
   }

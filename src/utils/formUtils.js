@@ -10,8 +10,8 @@ export const validatePassword = (pw, confirmPw) => {
 
 export const validateDateOfBirth = (dobStr) => {
   const dob = DateTime.fromISO(dobStr);
-  const interval = Interval.fromDateTimes(dob, DateTime.now)
-  return interval.length >= 15;
+  const interval = Interval.fromDateTimes(dob, DateTime.now())
+  return interval.length('years') >= 15;
 }
 
 export const validatePhone = (phone) => {

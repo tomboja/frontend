@@ -4,7 +4,6 @@ import { setActiveUserData } from '../../reducers/loginReducer'
 import { WELCOME_MESSAGE, STUDENT_LOGIN_FORM_HEADING, EMAIL, PASSWORD, ROLE, LOGIN, ERROR_DURING_LOGIN } from '../../texts'
 import '../../resources/styles/Login.css'
 import { roleOptions } from '../../dataMapping'
-import axios from 'axios'
 import { loginUserApi } from '../../api/loginAPIs'
 
 const LoginPage = () => {

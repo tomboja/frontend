@@ -24,3 +24,12 @@ export const SUBMIT = 'Submit'
 export const LOGIN = 'Login'
 
 export const ERROR_DURING_LOGIN = 'Error logging to the system. Try again'
+
+export const FIRST_NAME = 'First Name'
+export const LAST_NAME = 'Last Name'
+export const USER_ID = 'User id'
+export const PHONE_NUMBER = 'Phone Number'
+export const DATE_OF_BIRTH = 'Date of birth'
+export const ADDMISSION_DATE = 'Addmission Date'
+export const CONFIRM_PASSWORD = 'Confirm Password'
+export const REGISTER = 'Register'

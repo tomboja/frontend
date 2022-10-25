@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { validatePassword, validateDateOfBirth, validatePhone } from '../../utils/formUtils'
 import { saveUser } from '../../reducers/userReducer'
-import { STUDENT_REGISTRATION_TXT } from '../../texts'
+import { ADDMISSION_DATE, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, STUDENT_REGISTRATION_TXT, USER_ID } from '../../texts'
+import { createUser } from '../../api/loginAPIs'
 
 const RegistrationPage = () => {
   const dispatch = useDispatch()
@@ -30,6 +31,13 @@ const RegistrationPage = () => {
     const lastName = e.target.value;
     setUserData((oldData) => {
       return { ...oldData, lastName }
+    })
+  }
+
+  const setUserId = (e) => {
+    const userId = e.target.value
+    setUserData((oldData) => {
+      return { ...oldData, userId }
     })
   }
 
@@ -75,9 +83,10 @@ const RegistrationPage = () => {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log('Input data: ', userData)
+    console.log('Input data: ', userData)
+    const result = await createUser(userData)
     dispatch(saveUser(userData))
     setUserData(initialState)
   }
@@ -85,42 +94,128 @@ const RegistrationPage = () => {
   return (
     <div className='container'>
       <h4>{STUDENT_REGISTRATION_TXT}</h4>
-      <form action='' onSubmit={handleSubmit} method='post'>
+      <form action='' onSubmit={handleSubmit}>
         <div className='mb-3'>
-          <label htmlFor='fname' className='form-label'><b>First Name</b></label>
-          <input onChange={setFirstName} className='form-control' type='text' placeholder='First Name' name='fname' required value={userData.firstName} />
+          <label
+            htmlFor='fname'
+            className='form-label'><b>{FIRST_NAME}</b></label>
+          <input
+            onChange={setFirstName}
+            className='form-control'
+            type='text'
+            placeholder={FIRST_NAME}
+            name='fname'
+            required
+            value={userData.firstName} />
         </div>
         <div className='mb-3'>
-          <label htmlFor='lname' className='form-label'><b>Last Name</b></label>
-          <input onChange={setLastName} className='form-control' type='text' placeholder='Last Name' name='lname' required value={userData.lastName} />
+          <label
+            htmlFor='lname'
+            className='form-label'><b>{LAST_NAME}</b></label>
+          <input
+            onChange={setLastName}
+            className='form-control'
+            type='text'
+            placeholder={LAST_NAME}
+            name='lname'
+            required
+            value={userData.lastName} />
         </div>
         <div className='mb-3'>
-          <label htmlFor='email' className='form-label'><b>Email</b></label>
-          <input onChange={setEmail} className='form-control' type='email' placeholder='Email' name='email' required value={userData.email} />
+          <label
+            htmlFor='userId'
+            className='form-label'><b>{USER_ID}</b></label>
+          <input
+            onChange={setUserId}
+            className='form-control'
+            type='text'
+            placeholder={USER_ID}
+            name='userId'
+            required
+            value={userData.userId} />
         </div>
         <div className='mb-3'>
-          <label htmlFor='phone' className='form-label'><b>Phone Number</b></label>
-          <input onChange={setPhone} className='form-control' type='text' placeholder='Phone Number' name='phone' value={userData.phone} />
+          <label
+            htmlFor='email'
+            className='form-label'><b>{EMAIL}</b></label>
+          <input
+            onChange={setEmail}
+            className='form-control'
+            type='email'
+            placeholder={EMAIL}
+            name='email'
+            required
+            value={userData.email} />
         </div>
         <div className='mb-3'>
-          <label htmlFor='birthdate' className='form-label'><b>Date of Birth</b></label>
-          <input onChange={setDateOfBirth} className='form-control' type='date' placeholder='Date of Birth' name='birthdate' required value={userData.dateOfBirth} />
+          <label
+            htmlFor='phone'
+            className='form-label'><b>{PHONE_NUMBER}</b></label>
+          <input
+            onChange={setPhone}
+            className='form-control'
+            type='text'
+            placeholder={PHONE_NUMBER}
+            name='phone'
+            value={userData.phone} />
         </div>
         <div className='mb-3'>
-          <label htmlFor='admitdate' className='form-label'><b>Admission Date</b></label>
-          <input onChange={setAdmitDate} className='form-control' type='date' placeholder='Admission Date' name='admitdate' required value={userData.admissionDate} />
+          <label
+            htmlFor='birthdate'
+            className='form-label'><b>{DATE_OF_BIRTH}</b></label>
+          <input
+            onChange={setDateOfBirth}
+            className='form-control'
+            type='date'
+            placeholder={DATE_OF_BIRTH}
+            name='birthdate'
+            required
+            value={userData.dateOfBirth} />
         </div>
         <div className='mb-3'>
-          <label htmlFor='psw' className='form-label'><b>Password</b></label>
-          <input onChange={setPassword} className='form-control' type='password' placeholder='Password' name='psw' required value={userData.password} />
+          <label
+            htmlFor='admitdate'
+            className='form-label'><b>{ADDMISSION_DATE}</b></label>
+          <input
+            onChange={setAdmitDate}
+            className='form-control'
+            type='date'
+            placeholder={ADDMISSION_DATE}
+            name='admitdate'
+            required
+            value={userData.admissionDate} />
+        </div>
+        <div className='mb-3'>
+          <label
+            htmlFor='psw'
+            className='form-label'><b>{PASSWORD}</b></label>
+          <input
+            onChange={setPassword}
+            className='form-control'
+            type='password'
+            placeholder={PASSWORD}
+            name='psw'
+            required
+            value={userData.password} />
         </div>
 
         <div className='mb-3'>
-          <label htmlFor='confirm-psw' className='form-label'><b>Confirm Password</b></label>
-          <input onChange={setConfirmPassword} className='form-control' type='password' placeholder='Confirm Password' name='confirm-psw' required value={userData.confirmPassword} />
+          <label
+            htmlFor='confirm-psw'
+            className='form-label'><b>{CONFIRM_PASSWORD}</b></label>
+          <input
+            onChange={setConfirmPassword}
+            className='form-control'
+            type='password'
+            placeholder={CONFIRM_PASSWORD}
+            name='confirm-psw'
+            required
+            value={userData.confirmPassword} />
         </div>
 
-        <button type='submit' className='btn btn-primary'>Register</button>
+        <button
+          type='submit'
+          className='btn btn-primary'>{REGISTER}</button>
       </form>
     </div>
   )

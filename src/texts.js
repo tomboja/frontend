@@ -4,7 +4,6 @@
 
 export const WELCOME_MESSAGE = 'Welcome to ABC University'
 export const STUDENT_REGISTRATION_TXT = 'MIU University Student Registration'
-export const STUDENT_LOGIN_TXT = 'Welcome to ABC University'
 export const STUDENT_LOGIN_FORM_HEADING = 'Login'
 export const ABC_UNIVERSITY = 'ABC University'
 export const COURSE_OFFERINGS = 'Course Offerings'
@@ -23,3 +22,5 @@ export const PASSWORD = 'Password'
 export const ROLE = 'Role'
 export const SUBMIT = 'Submit'
 export const LOGIN = 'Login'
+
+export const ERROR_DURING_LOGIN = 'Error logging to the system. Try again'

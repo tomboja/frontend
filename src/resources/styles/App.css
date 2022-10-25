@@ -63,4 +63,7 @@ ul li .active {
   text-decoration: underline;
 }
 
-
+.error_message {
+  color: red;
+  font-size: small;
+}

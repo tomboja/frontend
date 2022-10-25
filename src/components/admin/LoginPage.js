@@ -1,18 +1,25 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setActiveUserData } from '../../reducers/loginReducer'
-import { STUDENT_LOGIN_TXT, STUDENT_LOGIN_FORM_HEADING, EMAIL, PASSWORD, ROLE, LOGIN } from '../../texts'
+import { WELCOME_MESSAGE, STUDENT_LOGIN_FORM_HEADING, EMAIL, PASSWORD, ROLE, LOGIN, ERROR_DURING_LOGIN } from '../../texts'
 import '../../resources/styles/Login.css'
 import { roleOptions } from '../../dataMapping'
+import axios from 'axios'
+import { loginUserApi } from '../../api/loginAPIs'
 
-export default function LoginPage() {
+const LoginPage = () => {
   const dispatch = useDispatch()
+  const activeUser = useSelector(state => state.activeUser)
   const initialState = {
+    access_token: '',
+    refresh_token: '',
     email: '',
     password: '',
     role: roleOptions[0].value
   }
+
   const [userData, setUserData] = useState(initialState)
+  const [error, setError] = useState(null)
 
   const setEmail = (e) => {
     const email = e.target.value
@@ -35,32 +42,39 @@ export default function LoginPage() {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    const body = { email: userData.email, password: userData.password, role: userData.role }
+    const response = await loginUserApi(body)
     dispatch(setActiveUserData(userData))
-    setUserData(initialState)
+    if (!response.error) {
+      setUserData(initialState)
+      setError(null)
+    } else {
+      setError(response.error)
+     }
   }
 
   return (
     <div className='container'>
-      <h4>{STUDENT_LOGIN_TXT}</h4>
+      <h4>{WELCOME_MESSAGE}</h4>
       <form className='row border loginForm' onSubmit={handleSubmit}>
         <h4>{STUDENT_LOGIN_FORM_HEADING}</h4>
         <div className='row mb-6 loginField'>
           <label htmlFor='email' className='col-2 col-form-label'>{EMAIL}</label>
-          <div className='col-6'>
+          <div className='col-9'>
             <input onChange={setEmail} className='form-control' type='email' placeholder='Email' required value={userData.email} />
           </div>
         </div>
         <div className='row mb-6 loginField'>
           <label htmlFor='psw' className='col-2 col-form-label'>{PASSWORD}</label>
-          <div className='col-6'>
+          <div className='col-9'>
             <input onChange={setPassword} className='form-control' type='password' placeholder='Password' required value={userData.password} />
           </div>
         </div>
         <div className='row mb-6 loginField'>
           <label htmlFor='role' className='col-2 col-form-label'>{ROLE}</label>
-          <div className='col-6'>
+          <div className='col-9'>
             <select
               onChange={setRole}
               className='form-select'
@@ -72,12 +86,15 @@ export default function LoginPage() {
             </select>
           </div>
         </div>
-        <div className='row text-end mb-3'>
-          <div className='col-8'>
-            <button type='button' className='btn btn-prime'>{LOGIN}</button>
+        {error ? <span className='error_message'>{ERROR_DURING_LOGIN}</span> : null}
+        <div className='row text-end mb-6'>
+          <div className='col-11'>
+            <button type='submit' className='btn btn-prime'>{LOGIN}</button>
           </div>
         </div>
       </form>
     </div>
   )
 }
+
+export default LoginPage

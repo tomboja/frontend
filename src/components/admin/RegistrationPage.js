@@ -115,7 +115,7 @@ const RegistrationPage = () => {
       //setErrors([...errors, "Passwords do not match!"])
     }
 
-    setErrors([...errors, errs])
+    setErrors([...errors, ...errs])
     const result = await createUser(userData)
     // console.log('Input data: ', userData)
     dispatch(saveUser(userData))

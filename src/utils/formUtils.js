@@ -24,6 +24,5 @@ export const validatePhone = (phone) => {
 
 export const validateUserId = (userId) => {
   const res = userId.match(/^[0-9]{6}/);
-  console.log(res);
   return res;
 }

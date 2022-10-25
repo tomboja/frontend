@@ -2,10 +2,6 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setActiveUserData } from '../../reducers/loginReducer'
 import { WELCOME_MESSAGE, STUDENT_LOGIN_FORM_HEADING, EMAIL, PASSWORD, ROLE, LOGIN, ERROR_DURING_LOGIN } from '../../texts'
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { STUDENT_LOGIN_TXT, STUDENT_LOGIN_FORM_HEADING } from "../../texts"
-import { ADMIN_USER, STUDENT_USER, FACULTY_USER, REGISTRAR_USER } from "../../consts"
 import '../../resources/styles/Login.css'
 import { roleOptions } from '../../dataMapping'
 import { loginUserApi } from '../../api/loginAPIs'

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { validatePassword, validateDateOfBirth, validatePhone } from '../../utils/formUtils'
+import { validatePassword, validateConfirmPassword, validateDateOfBirth, validatePhone, validateUserId } from '../../utils/formUtils'
 import { saveUser } from '../../reducers/userReducer'
-import { ADDMISSION_DATE, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, STUDENT_REGISTRATION_TXT, USER_ID, ERROR_DURING_REGISTER } from '../../texts'
+import { ADDMISSION_DATE, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, STUDENT_REGISTRATION_TXT, USER_ID } from '../../texts'
 import { createUser } from '../../api/loginAPIs'
 
 const RegistrationPage = () => {
@@ -87,26 +87,42 @@ const RegistrationPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log('Input data: ', userData)
+
+    const errs = []
+    
+    if (!validateUserId(userData.userId)) {
+      errs.push("User ID should must be 6 digits")
+      //setErrors([...errors, "User ID should must be 6 digits"])
+    }
     
     if (!validateDateOfBirth(userData.dateOfBirth)) {
-      setErrors([...errors,"Date of Birth is too recent - Age must be greater than 15"])
+      errs.push("DOB Error: User should be at least 15")
+      //setErrors([...errors, "DOB Error: User should be at least 15"])
     }
 
     if (!validatePhone(userData.phone)) {
-      setErrors([...errors,"Invalid Phone number - Non-numeric characters detected"])
+      errs.push("Invalid Phone number: Non-numeric characters detected")
+      //setErrors([...errors, "Invalid Phone number: Non-numeric characters detected"])
     }
 
-    if (!validatePassword(userData.password, userData.confirmPassword)) {
-      setErrors([...errors,"Passwords do not match!"])
+    if (!validatePassword(userData.password)) {
+      errs.push("Password rules: 6-16 chars including 1 number & 1 special char!")
+      //setErrors([...errors, "Password rules: 6-16 chars including 1 number & 1 special char!"])
     }
+    
+    if (!validateConfirmPassword(userData.password, userData.confirmPassword)) {
+      errs.push("Passwords do not match!")
+      //setErrors([...errors, "Passwords do not match!"])
+    }
+
+    setErrors([...errors, errs])
     const result = await createUser(userData)
     // console.log('Input data: ', userData)
     dispatch(saveUser(userData))
     setUserData(initialState)
   }
 
-  const errorSection = errors.length > 0 ? <ul>{errors.map(err => <li key={err} className='error_message'>{err}</li>)}</ul> : ''
+  //const errorSection = errors.length > 0 ? <ul>{errors.map(err => <li key={err} className='error_message'>{err}</li>)}</ul> : ''
 
   return (
     <div className='container'>
@@ -229,7 +245,7 @@ const RegistrationPage = () => {
             required
             value={userData.confirmPassword} />
         </div>
-        {errorSection}
+        {errors.length > 0 ? <ul>{errors.map(err => <li key={err} className='error_message'>{err}</li>)}</ul> : ''}
         <button
           type='submit'
           className='btn btn-prime'>{REGISTER}</button>

@@ -1,18 +1,18 @@
 import { useState } from "react"
-import { CREATE_COURSE_CREDHOURS, CREATE_COURSE_TITLE, CREATE_COURSE_HEADING, CREATE_COURSE_ID, CREATE_COURSE_DEPT, CREATE_COURSE_BUTTON } from "../../texts"
+import { CREATE_COURSE_CREDHOURS, CREATE_COURSE_TITLE, CREATE_COURSE_HEADING, CREATE_COURSE_ID, CREATE_COURSE_DEPT, CREATE_COURSE_BUTTON, CREATE_COURSE_NUMBER, CREATE_COURSE_CODE } from "../../texts"
 
 const CreateCoursePage = () => {
     const initialState = {
-        id: '',
+        num: '',
         title: '',
         creditHours: 0,
         department: ''
     }
     const [courseData, setCourseData] = useState(initialState)
 
-    const setId = (e) => {
-        const id = e.target.value
-        setCourseData({...courseData, id})
+    const setNum = (e) => {
+        const num = e.target.value
+        setCourseData({...courseData, num})
     }
     
     const setTitle = (e) => {
@@ -40,17 +40,17 @@ const CreateCoursePage = () => {
             <form onSubmit={handleSubmit}>
                 <div className='mb-3'>
                     <label
-                        htmlFor='cid'
-                        className='form-label'><b>{CREATE_COURSE_ID}</b>
+                        htmlFor='cnum'
+                        className='form-label'><b>{CREATE_COURSE_CODE}</b>
                     </label>
                     <input
-                    onChange={setId}
+                    onChange={setNum}
                     className='form-control'
                     type='text'
-                    placeholder={CREATE_COURSE_ID}
-                    name='cid'
+                    placeholder={CREATE_COURSE_CODE}
+                    name='cnum'
                     required
-                    value={courseData.id} />
+                    value={courseData.num} />
                 </div>
                 <div className='mb-3'>
                     <label

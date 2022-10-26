@@ -22,7 +22,15 @@ export const validatePhone = (phone) => {
   return phone.match(/^[0-9]{10}/);
 }
 
-export const validateUserId = (userId) => {
-  const res = userId.match(/^[0-9]{6}/);
-  return res;
+export const validateZip = (zip) => {
+  return zip.match(/[0-9]{5}/)
+}
+
+// export const validateUserId = (userId) => {
+//   const res = userId.match(/^[0-9]{6}/);
+//   return res;
+// }
+
+export const validateCourseNum = (cNum) => {
+  return cNum.match(/^[A-Z]{2}[0-9]{3}/)
 }

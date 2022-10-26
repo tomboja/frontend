@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { validatePassword, validateConfirmPassword, validateDateOfBirth, validatePhone, validateUserId, validateEmail } from '../../utils/formUtils'
+import { validatePassword, validateConfirmPassword, validateDateOfBirth, validatePhone, validateZip, validateEmail } from '../../utils/formUtils'
 import { saveUser } from '../../reducers/userReducer'
-import { ADDMISSION_DATE, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, ERR_CONFIRM_PASS, ERR_DOB, ERR_PASSWORD, ERR_PASS_FORMAT, ERR_PHONE, ERR_USER_ID, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, ROLE, STUDENT_REGISTRATION_TXT, USER_ID } from '../../texts'
+import { ADDMISSION_DATE, CITY, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, ERR_CONFIRM_PASS, ERR_DOB, ERR_PASS_FORMAT, ERR_PHONE, ERR_USER_ID, ERR_ZIP, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, ROLE, STATE, STREET, STUDENT_REGISTRATION_TXT, ZIP } from '../../texts'
 import { createUser } from '../../api/loginAPIs'
 import { roleOptions } from '../../mapping/dataMapping'
 
@@ -11,7 +11,10 @@ const RegistrationPage = () => {
   const initialState = {
     firstName: '',
     lastName: '',
-    userId: '',
+    city: '',
+    state: '',
+    street: '',
+    zip: '',
     email: '',
     phone: '',
     dateOfBirth: '',
@@ -37,11 +40,31 @@ const RegistrationPage = () => {
     })
   }
 
-  const setUserId = (e) => {
-    const userId = e.target.value
-    setUserData((oldData) => {
-      return { ...oldData, userId }
-    })
+  // const setUserId = (e) => {
+  //   const userId = e.target.value
+  //   setUserData((oldData) => {
+  //     return { ...oldData, userId }
+  //   })
+  // }
+
+  const setCity = (e) => {
+    const city = e.target.value
+    setUserData({...userData, city})
+  }
+
+  const setState = (e) => {
+    const state = e.target.value
+    setUserData({...userData, state})
+  }
+
+  const setStreet = (e) => {
+    const street = e.target.value
+    setUserData({...userData, street})
+  }
+
+  const setZip = (e) => {
+    const zip = e.target.value
+    setUserData({...userData, zip})
   }
 
   const setEmail = (e) => {
@@ -102,10 +125,14 @@ const RegistrationPage = () => {
       errs.push(ERR_USER_ID)
     }
     
-    if (!validateUserId(userData.userId)) {
-      errs.push(ERR_USER_ID)
-    }
+    // if (!validateUserId(userData.userId)) {
+    //   errs.push(ERR_USER_ID)
+    // }
     
+    if (!validateZip(userData.zip)) {
+      errs.push(ERR_ZIP)
+    }
+
     if (!validateDateOfBirth(userData.dateOfBirth)) {
       errs.push(ERR_DOB)
     }
@@ -169,19 +196,58 @@ const RegistrationPage = () => {
             required
             value={userData.lastName} />
         </div>
-        {/* <div className='mb-3'>
+        <div className='mb-3'>
           <label
-            htmlFor='userId'
-            className='form-label'><b>{USER_ID}</b></label>
+            htmlFor='city'
+            className='form-label'><b>{CITY}</b></label>
           <input
-            onChange={setUserId}
+            onChange={setCity}
             className='form-control'
             type='text'
-            placeholder={USER_ID}
-            name='userId'
+            placeholder={CITY}
+            name='city'
             required
-            value={userData.userId} />
-        </div> */}
+            value={userData.city} />
+        </div>
+        <div className='mb-3'>
+          <label
+            htmlFor='state'
+            className='form-label'><b>{STATE}</b></label>
+          <input
+            onChange={setState}
+            className='form-control'
+            type='text'
+            placeholder={STATE}
+            name='state'
+            required
+            value={userData.state} />
+        </div>
+        <div className='mb-3'>
+          <label
+            htmlFor='street'
+            className='form-label'><b>{STREET}</b></label>
+          <input
+            onChange={setStreet}
+            className='form-control'
+            type='text'
+            placeholder={STREET}
+            name='street'
+            required
+            value={userData.street} />
+        </div>
+        <div className='mb-3'>
+          <label
+            htmlFor='zip'
+            className='form-label'><b>{ZIP}</b></label>
+          <input
+            onChange={setZip}
+            className='form-control'
+            type='text'
+            placeholder={ZIP}
+            name='zip'
+            required
+            value={userData.zip} />
+        </div>
         <div className='mb-3'>
           <label
             htmlFor='email'
@@ -247,7 +313,7 @@ const RegistrationPage = () => {
             required
             value={userData.admissionDate} />
         </div>
-        {/* <div className='mb-3'>
+        <div className='mb-3'>
           <label
             htmlFor='psw'
             className='form-label'><b>{PASSWORD}</b></label>
@@ -273,7 +339,7 @@ const RegistrationPage = () => {
             name='confirm-psw'
             required
             value={userData.confirmPassword} />
-        </div> */}
+        </div>
         {errors.length > 0 ? <ul>{errors.map(err => <li key={err} className='error_message'>{err}</li>)}</ul> : ''}
         <button
           type='submit'

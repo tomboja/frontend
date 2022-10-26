@@ -11,6 +11,7 @@ import { useSelector } from "react-redux"
 import AdminPage from "../components/admin/AdminPage"
 import { ADMIN_USER, FACULTY_USER, REGISTRAR_USER, STUDENT_USER } from "../consts"
 import RolebaseHomepage from "../componentUtils/homepageBasedOnRole"
+import CreateCoursePage from "../components/registrar/CreateCoursePage"
 
 const PageRoutes = () => {
   const activeUser = useSelector(state => state.activeUser)
@@ -29,6 +30,7 @@ const PageRoutes = () => {
         <Route path='/' element={<RolebaseHomepage role = {role}/>}></Route>
         <Route path='/courses' element={<CourseOfferings />}></Route>
         <Route path='/createUser' element={<RegistrationPage />}></Route>
+        <Route path='/create_course' element={<CreateCoursePage />}></Route>
         <Route path='/aboutus' element={<AboutPage />}></Route>
         <Route path="/createUser" element={<RegistrationPage />}></Route>
       </Routes>

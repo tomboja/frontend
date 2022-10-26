@@ -64,10 +64,11 @@ export const ERR_CONFIRM_PASS = 'Passwords do not match!'
 export const ERR_ZIP = 'Invalid Zip Code Format'
 export const ERR_CREDIT_HOURS = 'Invalid value for Credit Hours'
 
-export const CREATE_COURSE_HEADING = 'Create a New Course'
-export const CREATE_COURSE_CODE = 'Course Code'
-export const CREATE_COURSE_TITLE = 'Title'
-export const CREATE_COURSE_CREDHOURS = 'Credit Hours'
-export const CREATE_COURSE_DEPT = 'Department'
-export const CREATE_COURSE_BUTTON = 'Create'
+export const COURSE_HEADING = 'Create a New Course'
+export const COURSE_NUMBER = 'Course Number'
+export const COURSE_CREDHOURS = 'Credit Hours'
+export const COURSE_LEVEL = 'Course Level'
+export const COURSE_BUTTON = 'Create'
+
+export const COURSE_NUMBER_ERROR = 'Course Number can not be greater than 300 or less than 599'
 

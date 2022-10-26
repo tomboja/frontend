@@ -1,105 +1,115 @@
-import { useState } from "react"
-import { CREATE_COURSE_CREDHOURS, CREATE_COURSE_TITLE, CREATE_COURSE_HEADING, CREATE_COURSE_ID, CREATE_COURSE_DEPT, CREATE_COURSE_BUTTON, CREATE_COURSE_NUMBER, CREATE_COURSE_CODE } from "../../texts"
+import { useRef, useState } from "react"
+import { COURSE_NUMBER, COURSE_TITLE, COURSE_CREDHOURS, COURSE_LEVEL, COURSE_HEADING, COURSE_BUTTON } from "../../texts"
+import { courseLevels } from "../../mapping/dataMapping"
+import '../../resources/styles/styles.css'
+import { createCourse } from "../../api/courseAPIs"
 
 const CreateCoursePage = () => {
     const initialState = {
-        code: '',
+        courseNumber: '',
         title: '',
         creditHours: 0,
-        department: ''
+        level: courseLevels[0].value
     }
     const [courseData, setCourseData] = useState(initialState)
-    const [error, setError] = useState(null)
-    const dispatch = useDispatch()
-    
+    const [errors, setError] = useState([])
+    const courseNumberRef = useRef()
+
+    const setCourseNumber = (e) => {
+        const val = e.target.value
+        setCourseData({ ...courseData, courseNumber: val })
+    }
+
     const setTitle = (e) => {
         const title = e.target.value
-        setCourseData({...courseData, title})
+        setCourseData({ ...courseData, title })
     }
 
     const setCreditHours = (e) => {
         const creditHours = e.target.value
-        setCourseData({...courseData, creditHours})
+        setCourseData({ ...courseData, creditHours })
     }
 
-    const setDepartment = (e) => {
-        const department = e.target.value
-        setCourseData({...courseData, department})
+    const setCourseLevel = (e) => {
+        const level = e.target.value
+        setCourseData({ ...courseData, level })
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-        if (!validateCreditHours(courseData.creditHours)) {
-            setError(ERR_CREDIT_HOURS)
-            return
+        const reqBody = {
+            courseNumber: courseData.courseNumber,
+            title: courseData.title,
+            level: courseData.level,
+            credit: courseData.creditHours
         }
-        const result = await createCourse(courseData)
-        dispatch(courseData)
+        const result = await createCourse(reqBody)
     }
 
     return (
         <div className="container">
-            <h4>{CREATE_COURSE_HEADING}</h4>
+            <h4>{COURSE_HEADING}</h4>
             <form onSubmit={handleSubmit}>
                 <div className='mb-3'>
                     <label
-                        htmlFor='cnum'
-                        className='form-label'><b>{CREATE_COURSE_CODE}</b>
+                        htmlFor='cid'
+                        className='form-label'><b>{COURSE_NUMBER}</b>
                     </label>
                     <input
-                    onChange={setNum}
-                    className='form-control'
-                    type='text'
-                    placeholder={CREATE_COURSE_CODE}
-                    name='cnum'
-                    required
-                    value={courseData.num} />
+                        onChange={setCourseNumber}
+                        className='form-control'
+                        type='text'
+                        placeholder={COURSE_NUMBER}
+                        name='cid'
+                        required
+                        ref={courseNumberRef}
+                        value={courseData.courseNumber} />
                 </div>
                 <div className='mb-3'>
                     <label
                         htmlFor='title'
-                        className='form-label'><b>{CREATE_COURSE_TITLE}</b>
+                        className='form-label'><b>{COURSE_TITLE}</b>
                     </label>
                     <input
-                    onChange={setTitle}
-                    className='form-control'
-                    type='text'
-                    placeholder={CREATE_COURSE_TITLE}
-                    name='title'
-                    required
-                    value={courseData.title} />
+                        onChange={setTitle}
+                        className='form-control'
+                        type='text'
+                        placeholder={COURSE_TITLE}
+                        name='title'
+                        required
+                        value={courseData.title} />
                 </div>
                 <div className='mb-3'>
                     <label
                         htmlFor='credhours'
-                        className='form-label'><b>{CREATE_COURSE_CREDHOURS}</b>
+                        className='form-label'><b>{COURSE_CREDHOURS}</b>
                     </label>
                     <input
-                    onChange={setCreditHours}
-                    className='form-control'
-                    type='number'
-                    placeholder={CREATE_COURSE_CREDHOURS}
-                    name='credhours'
-                    required
-                    value={courseData.creditHours} />
+                        onChange={setCreditHours}
+                        className='form-control'
+                        type='text'
+                        placeholder={COURSE_CREDHOURS}
+                        name='credhours'
+                        required
+                        value={courseData.creditHours} />
                 </div>
                 <div className='mb-3'>
                     <label
                         htmlFor='dept'
-                        className='form-label'><b>{CREATE_COURSE_DEPT}</b>
+                        className='form-label'><b>{COURSE_LEVEL}</b>
                     </label>
-                    <input
-                    onChange={setDepartment}
-                    className='form-control'
-                    type='text'
-                    placeholder={CREATE_COURSE_DEPT}
-                    name='dept'
-                    required
-                    value={courseData.department} />
+                    <select
+                        onChange={setCourseLevel}
+                        className='form-select'
+                        name='course_level'
+                        value={courseData.level}>
+                        {courseLevels.map(level => <option
+                            key={level.label}
+                            value={level.value}>{level.label}</option>)}
+                    </select>
                 </div>
-                {error ? <ErrorComponent errorId='createCourseError' errorMessage={error} /> : ''}
-                <button type='submit' className='btn btn-prime'>{CREATE_COURSE_BUTTON}</button>
+                { }
+                <button type='submit' className='btn btn-prime'>{COURSE_BUTTON}</button>
             </form>
         </div>
     )

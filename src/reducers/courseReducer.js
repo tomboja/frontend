@@ -12,10 +12,11 @@ const courseReducer = createSlice({
     },
     deleteCourse: () => { },
     loadCourses: () => {},
+    resetCourse: () => initialState
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { saveCourse, deleteCourse, loadCourses } = courseReducer.actions
+export const { saveCourse, deleteCourse, loadCourses, resetCourse } = courseReducer.actions
 
 export default courseReducer.reducer

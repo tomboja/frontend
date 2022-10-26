@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllCourse } from "../../api/courseAPIs"
 import { COURSE_API_URI } from "../../consts"
-import { saveCourse } from "../../reducers/courseReducer"
+import { saveCourse, resetCourse } from "../../reducers/courseReducer"
 import {Link} from "react-router-dom"
 import { COURSE_DEPARTMENT, COURSE_ID, COURSE_TITLE } from "../../texts"
 
@@ -32,6 +32,9 @@ useEffect(() => {
   const courses = getAllCourse()
   dispatch(saveCourse(courses))
   setCourse(courses)
+  return () => {
+    dispatch(resetCourse())
+  }
 }, [])
 
 const renderCourseDetails = (course) => {

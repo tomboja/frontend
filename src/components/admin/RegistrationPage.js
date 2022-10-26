@@ -117,7 +117,6 @@ const RegistrationPage = () => {
 
     setErrors([...errors, ...errs])
     const result = await createUser(userData)
-    // console.log('Input data: ', userData)
     dispatch(saveUser(userData))
     setUserData(initialState)
   }

@@ -1,6 +1,6 @@
 
-import { ADMIN_USER, FACULTY_USER, REGISTRAR_USER, STUDENT_USER } from "./consts"
-import { ADMIN, STUDENT, REGISTRAR, FACULTY } from "./texts"
+import { ADMIN_USER, FACULTY_USER, REGISTRAR_USER, STUDENT_USER } from "../consts"
+import { ADMIN, STUDENT, REGISTRAR, FACULTY } from "../texts"
 
 export const roleOptions = [{
   label: ADMIN,

@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setActiveUserData } from '../../reducers/loginReducer'
 import { WELCOME_MESSAGE, STUDENT_LOGIN_FORM_HEADING, EMAIL, PASSWORD, ROLE, LOGIN, ERROR_DURING_LOGIN } from '../../texts'
 import '../../resources/styles/Login.css'
-import { roleOptions } from '../../dataMapping'
+import { roleOptions } from '../../mapping/dataMapping'
 import { loginUserApi } from '../../api/loginAPIs'
+import ErrorComponent from '../ErrorComponent/ErrorComponent'
 
 const LoginPage = () => {
   const dispatch = useDispatch()
@@ -51,7 +52,7 @@ const LoginPage = () => {
       setError(null)
     } else {
       setError(response.error)
-     }
+    }
   }
 
   return (
@@ -85,7 +86,12 @@ const LoginPage = () => {
             </select>
           </div>
         </div>
-        {error ? <span className='error_message'>{ERROR_DURING_LOGIN}</span> : null}
+        
+        {error ? <ErrorComponent
+          errorId='loginError'
+          errorMessage={ERROR_DURING_LOGIN} />
+          : null}
+        
         <div className='row text-end mb-6'>
           <div className='col-11'>
             <button type='submit' className='btn btn-prime'>{LOGIN}</button>

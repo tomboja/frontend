@@ -23,7 +23,7 @@ const userReducer = createSlice({
       userData.push(action.payload)
     },
     deleteUser: () => { },
-    loadUsers: () => {},
+    loadUsers: () => { },
   }
 })
 

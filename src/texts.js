@@ -48,7 +48,6 @@ export const SEARCH_MESSAGE = 'Search Student, Faculty or other system users by 
 export const USER_ID_NOT_CORRECT = 'User id provided is not in correct format'
 export const STUDENT_COURSES = 'Student Courses'
 export const COURSE_CODE = 'Course Code'
-export const COURSE_TITLE = 'Course Title'
 export const COURSE = 'Course'
 
 export const ERR_EMAIL = 'Invalid email format'

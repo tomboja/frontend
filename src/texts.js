@@ -62,6 +62,7 @@ export const ERR_PHONE = 'Invalid Phone number: Non-numeric characters detected'
 export const ERR_PASS_FORMAT = 'Password rules: 6-16 chars including 1 number & 1 special char!'
 export const ERR_CONFIRM_PASS = 'Passwords do not match!'
 export const ERR_ZIP = 'Invalid Zip Code Format'
+export const ERR_CREDIT_HOURS = 'Invalid value for Credit Hours'
 
 export const CREATE_COURSE_HEADING = 'Create a New Course'
 export const CREATE_COURSE_CODE = 'Course Code'

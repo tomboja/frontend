@@ -31,6 +31,6 @@ export const validateZip = (zip) => {
 //   return res;
 // }
 
-export const validateCourseNum = (cNum) => {
-  return cNum.match(/^[A-Z]{2}[0-9]{3}/)
+export const validateCreditHours = (credHours) => {
+  return credHours.match(/^[0-9]{1,3}/)
 }

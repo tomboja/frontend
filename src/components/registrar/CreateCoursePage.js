@@ -3,17 +3,14 @@ import { CREATE_COURSE_CREDHOURS, CREATE_COURSE_TITLE, CREATE_COURSE_HEADING, CR
 
 const CreateCoursePage = () => {
     const initialState = {
-        num: '',
+        code: '',
         title: '',
         creditHours: 0,
         department: ''
     }
     const [courseData, setCourseData] = useState(initialState)
-
-    const setNum = (e) => {
-        const num = e.target.value
-        setCourseData({...courseData, num})
-    }
+    const [error, setError] = useState(null)
+    const dispatch = useDispatch()
     
     const setTitle = (e) => {
         const title = e.target.value
@@ -30,8 +27,15 @@ const CreateCoursePage = () => {
         setCourseData({...courseData, department})
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+
+        if (!validateCreditHours(courseData.creditHours)) {
+            setError(ERR_CREDIT_HOURS)
+            return
+        }
+        const result = await createCourse(courseData)
+        dispatch(courseData)
     }
 
     return (
@@ -94,7 +98,7 @@ const CreateCoursePage = () => {
                     required
                     value={courseData.department} />
                 </div>
-                {}
+                {error ? <ErrorComponent errorId='createCourseError' errorMessage={error} /> : ''}
                 <button type='submit' className='btn btn-prime'>{CREATE_COURSE_BUTTON}</button>
             </form>
         </div>

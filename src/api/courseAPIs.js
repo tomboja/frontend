@@ -16,19 +16,22 @@ export const getAllCourse = () => {
         courseId:'CS390',
         courseTitle:'FPP',
         creditHours: 4,
-        department: 'compro'
+        department: 'compro',
+        enroll_status:0
       },
       {
           courseId:'CS490',
           courseTitle:'MPP',
           creditHours: 4,
-          department: 'compro'
+          department: 'compro',
+          enroll_status: 1
         },
         {
           courseId:'CS590',
           courseTitle:'CPP',
           creditHours: 4,
-          department: 'compro'
+          department: 'compro',
+          enroll_status: 1
         }
   ]
 }

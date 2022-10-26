@@ -92,32 +92,26 @@ const RegistrationPage = () => {
 
     if (!validateEmail(userData.email)) {
       errs.push(ERR_USER_ID)
-      //setErrors([...errors, "User ID should must be 6 digits"])
     }
     
     if (!validateUserId(userData.userId)) {
       errs.push(ERR_USER_ID)
-      //setErrors([...errors, "User ID should must be 6 digits"])
     }
     
     if (!validateDateOfBirth(userData.dateOfBirth)) {
       errs.push(ERR_DOB)
-      //setErrors([...errors, "DOB Error: User should be at least 15"])
     }
 
     if (!validatePhone(userData.phone)) {
       errs.push(ERR_PHONE)
-      //setErrors([...errors, "Invalid Phone number: Non-numeric characters detected"])
     }
 
     if (!validatePassword(userData.password)) {
       errs.push(ERR_PASS_FORMAT)
-      //setErrors([...errors, "Password rules: 6-16 chars including 1 number & 1 special char!"])
     }
     
     if (!validateConfirmPassword(userData.password, userData.confirmPassword)) {
       errs.push(ERR_CONFIRM_PASS)
-      //setErrors([...errors, "Passwords do not match!"])
     }
 
     setErrors([...errors, ...errs])

@@ -24,10 +24,10 @@ const AdminNav = () => {
   return <>
     <li><NavLink to="/" className="menuItem">{HOME}</NavLink></li>
     <li><NavLink to="/createUser" className="menuItem">{CREATE_USER}</NavLink></li>
-    <li>{role ?
-      <button
+    <li className="logout">{role ?
+      <span
         onClick={handleLogout}
-        className="menuItem">{LOGOUT}</button>
+        className="menuItem">{LOGOUT}</span>
       : null}</li>
   </>
 }

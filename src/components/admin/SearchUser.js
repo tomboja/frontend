@@ -12,7 +12,6 @@ const SearchUser = () => {
   const [foundUser, setFoundUser] = useState(null)
   const dispatch = useDispatch()
   
-
   const validateUserId = (userId) => {
     // UserId Valid Logic
     return userId.length === 6

@@ -4,7 +4,7 @@
 
 import React from "react"
 
-import { CREATE_USER, LOGOUT, HOME } from "../../texts"
+import { CREATE_USER, LOGOUT, HOME, COURSE_OFFERINGS, MY_COURSE_OFFERINGS } from "../../texts"
 import { NavLink } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from "../../reducers/loginReducer"
@@ -24,7 +24,8 @@ const StudentNav = () => {
 
   return <>
     <li><NavLink to="/" className="menuItem">{HOME}</NavLink></li>
-    <li><NavLink to="/createUser" className="menuItem">{CREATE_USER}</NavLink></li>
+    <li><NavLink to="/course_offerings" className="menuItem">{COURSE_OFFERINGS}</NavLink></li>
+    <li><NavLink to="/my_course_offerings" className="menuItem">{MY_COURSE_OFFERINGS}</NavLink></li>
     <li className="logout">{role ?
       <span
         onClick={handleLogout}

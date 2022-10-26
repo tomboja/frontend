@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setActiveUserData } from '../../reducers/loginReducer'
-import { WELCOME_MESSAGE, STUDENT_LOGIN_FORM_HEADING, EMAIL, PASSWORD, ROLE, LOGIN, ERROR_DURING_LOGIN } from '../../texts'
+import { WELCOME_MESSAGE, STUDENT_LOGIN_FORM_HEADING, EMAIL, PASSWORD, ROLE, LOGIN, ERROR_DURING_LOGIN, ERR_EMAIL, ERR_PASS_FORMAT } from '../../texts'
 import '../../resources/styles/Login.css'
-import { roleOptions } from '../../dataMapping'
+import { roleOptions } from '../../mapping/dataMapping'
 import { loginUserApi } from '../../api/loginAPIs'
+import ErrorComponent from '../ErrorComponent/ErrorComponent'
+import { validateEmail, validatePassword } from '../../utils/formUtils'
 
 const LoginPage = () => {
   const dispatch = useDispatch()
@@ -43,6 +45,18 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const errs = []
+
+    if (!validateEmail(userData.email)) {
+      setError(ERR_EMAIL)
+      return
+    }
+    
+    if (!validatePassword(userData.password)) {
+      setError(ERR_PASS_FORMAT)
+      return
+    }
+
     const body = { email: userData.email, password: userData.password, role: userData.role }
     const response = await loginUserApi(body)
     dispatch(setActiveUserData(userData))
@@ -51,7 +65,7 @@ const LoginPage = () => {
       setError(null)
     } else {
       setError(response.error)
-     }
+    }
   }
 
   return (
@@ -85,7 +99,12 @@ const LoginPage = () => {
             </select>
           </div>
         </div>
-        {error ? <span className='error_message'>{ERROR_DURING_LOGIN}</span> : null}
+        
+        {error ? <ErrorComponent
+          errorId='loginError'
+          errorMessage={error} />
+          : null}
+        
         <div className='row text-end mb-6'>
           <div className='col-11'>
             <button type='submit' className='btn btn-prime'>{LOGIN}</button>

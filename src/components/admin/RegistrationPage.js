@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { validatePassword, validateDateOfBirth, validatePhone } from '../../utils/formUtils'
+import { validatePassword, validateConfirmPassword, validateDateOfBirth, validatePhone, validateUserId, validateEmail } from '../../utils/formUtils'
 import { saveUser } from '../../reducers/userReducer'
-import { ADDMISSION_DATE, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, STUDENT_REGISTRATION_TXT, USER_ID } from '../../texts'
+import { ADDMISSION_DATE, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, ERR_CONFIRM_PASS, ERR_DOB, ERR_PASSWORD, ERR_PASS_FORMAT, ERR_PHONE, ERR_USER_ID, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, STUDENT_REGISTRATION_TXT, USER_ID } from '../../texts'
 import { createUser } from '../../api/loginAPIs'
 
 const RegistrationPage = () => {
@@ -18,7 +18,9 @@ const RegistrationPage = () => {
     password: '',
     confirmPassword: ''
   }
+  
   const [userData, setUserData] = useState(initialState)
+  const [errors, setErrors] = useState([])
 
   const setFirstName = (e) => {
     const firstName = e.target.value;
@@ -85,29 +87,35 @@ const RegistrationPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log('Input data: ', userData)
+
+    const errs = []
+
+    if (!validateEmail(userData.email)) {
+      errs.push(ERR_USER_ID)
+    }
+    
+    if (!validateUserId(userData.userId)) {
+      errs.push(ERR_USER_ID)
+    }
     
     if (!validateDateOfBirth(userData.dateOfBirth)) {
-      alert("Date of Birth is too recent - Age must be greater than 15")
-      return
+      errs.push(ERR_DOB)
     }
 
     if (!validatePhone(userData.phone)) {
-      alert("Invalid Phone number - Non-numeric characters detected")
-      return
+      errs.push(ERR_PHONE)
     }
 
-    if (!validatePhone(userData.phone)) {
-      alert("Invalid Phone number - Non-numeric characters detected")
-      return
+    if (!validatePassword(userData.password)) {
+      errs.push(ERR_PASS_FORMAT)
+    }
+    
+    if (!validateConfirmPassword(userData.password, userData.confirmPassword)) {
+      errs.push(ERR_CONFIRM_PASS)
     }
 
-    if (!validatePassword(userData.password, userData.confirmPassword)) {
-      alert("Passwords do not match!")
-      return
-    }
+    setErrors([...errors, ...errs])
     const result = await createUser(userData)
-    // console.log('Input data: ', userData)
     dispatch(saveUser(userData))
     setUserData(initialState)
   }
@@ -233,10 +241,10 @@ const RegistrationPage = () => {
             required
             value={userData.confirmPassword} />
         </div>
-
+        {errors.length > 0 ? <ul>{errors.map(err => <li key={err} className='error_message'>{err}</li>)}</ul> : ''}
         <button
           type='submit'
-          className='btn btn-primary'>{REGISTER}</button>
+          className='btn btn-prime'>{REGISTER}</button>
       </form>
     </div>
   )

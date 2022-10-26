@@ -9,6 +9,7 @@ export const loginUserApi = async (body) => {
 }
 
 export const createUser = async (body) => {
+  console.log('Called ', body)
   return await axios.post(CREATE_USER_URL, body)
     .then(res => res.data)
     .catch(error => error.message)

@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { validatePassword, validateConfirmPassword, validateDateOfBirth, validatePhone, validateUserId, validateEmail } from '../../utils/formUtils'
 import { saveUser } from '../../reducers/userReducer'
-import { ADDMISSION_DATE, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, ERR_CONFIRM_PASS, ERR_DOB, ERR_PASSWORD, ERR_PASS_FORMAT, ERR_PHONE, ERR_USER_ID, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, STUDENT_REGISTRATION_TXT, USER_ID } from '../../texts'
+import { ADDMISSION_DATE, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, ERR_CONFIRM_PASS, ERR_DOB, ERR_PASSWORD, ERR_PASS_FORMAT, ERR_PHONE, ERR_USER_ID, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, ROLE, STUDENT_REGISTRATION_TXT, USER_ID } from '../../texts'
 import { createUser } from '../../api/loginAPIs'
+import { roleOptions } from '../../mapping/dataMapping'
 
 const RegistrationPage = () => {
   const dispatch = useDispatch()
@@ -85,6 +86,13 @@ const RegistrationPage = () => {
     })
   }
 
+  const setRole = (e) => {
+    const role = e.target.value
+    setUserData((oldData) => {
+      return { ...oldData, role }
+    })
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -114,6 +122,17 @@ const RegistrationPage = () => {
       errs.push(ERR_CONFIRM_PASS)
     }
 
+    console.log('=================')
+    console.log('================= ', userData)
+    console.log('=================')
+
+    const body = {
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      admissionDate: userData.admissionDate,
+      dob: userData.dateOfBirth
+    }
     setErrors([...errors, ...errs])
     const result = await createUser(userData)
     dispatch(saveUser(userData))
@@ -123,7 +142,7 @@ const RegistrationPage = () => {
   return (
     <div className='container'>
       <h4>{STUDENT_REGISTRATION_TXT}</h4>
-      <form action='' onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className='mb-3'>
           <label
             htmlFor='fname'
@@ -150,7 +169,7 @@ const RegistrationPage = () => {
             required
             value={userData.lastName} />
         </div>
-        <div className='mb-3'>
+        {/* <div className='mb-3'>
           <label
             htmlFor='userId'
             className='form-label'><b>{USER_ID}</b></label>
@@ -162,7 +181,7 @@ const RegistrationPage = () => {
             name='userId'
             required
             value={userData.userId} />
-        </div>
+        </div> */}
         <div className='mb-3'>
           <label
             htmlFor='email'
@@ -175,6 +194,20 @@ const RegistrationPage = () => {
             name='email'
             required
             value={userData.email} />
+        </div>
+        <div className='mb-3'>
+          <label
+            htmlFor='email'
+            className='form-label'><b>{ROLE}</b></label>
+          <select
+            onChange={setRole}
+            className='form-select'
+            name='role'
+            value={userData.role}>
+            {roleOptions.map(role => <option
+              key={role.label}
+              value={role.value}>{role.label}</option>)}
+          </select>
         </div>
         <div className='mb-3'>
           <label
@@ -214,7 +247,7 @@ const RegistrationPage = () => {
             required
             value={userData.admissionDate} />
         </div>
-        <div className='mb-3'>
+        {/* <div className='mb-3'>
           <label
             htmlFor='psw'
             className='form-label'><b>{PASSWORD}</b></label>
@@ -240,7 +273,7 @@ const RegistrationPage = () => {
             name='confirm-psw'
             required
             value={userData.confirmPassword} />
-        </div>
+        </div> */}
         {errors.length > 0 ? <ul>{errors.map(err => <li key={err} className='error_message'>{err}</li>)}</ul> : ''}
         <button
           type='submit'

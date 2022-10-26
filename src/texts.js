@@ -33,3 +33,9 @@ export const DATE_OF_BIRTH = 'Date of birth'
 export const ADDMISSION_DATE = 'Addmission Date'
 export const CONFIRM_PASSWORD = 'Confirm Password'
 export const REGISTER = 'Register'
+
+
+export const COURSE_DETAIL= "Course Detail"
+export const COURSE_ID= "Course Id"
+export const COURSE_TITLE= "Course Title"
+export const COURSE_DEPARTMENT= "Department"

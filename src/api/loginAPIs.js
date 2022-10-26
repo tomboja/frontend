@@ -7,10 +7,3 @@ export const loginUserApi = async (body) => {
     .then(res => res.data)
     .catch(error => `${ERROR_DURING_LOGIN} ${error.message}`)
 }
-
-export const createUser = async (body) => {
-  console.log('Called ', body)
-  return await axios.post(CREATE_USER_URL, body)
-    .then(res => res.data)
-    .catch(error => error.message)
-}

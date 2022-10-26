@@ -17,6 +17,20 @@ export const roleOptions = [{
 {
   value: FACULTY_USER,
   label: FACULTY
+  }]
+
+export const roleWithoutAdmin = [
+{
+  value: STUDENT_USER,
+  label: STUDENT
+},
+{
+  value: REGISTRAR_USER,
+  label: REGISTRAR
+},
+{
+  value: FACULTY_USER,
+  label: FACULTY
 }]
 
 export const courseLevels = [

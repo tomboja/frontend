@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux'
 import { validatePassword, validateConfirmPassword, validateDateOfBirth, validatePhone, validateZip, validateEmail } from '../../utils/formUtils'
 import { saveUser } from '../../reducers/userReducer'
 import { ADDMISSION_DATE, CITY, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, ERR_CONFIRM_PASS, ERR_DOB, ERR_PASS_FORMAT, ERR_PHONE, ERR_USER_ID, ERR_ZIP, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, ROLE, STATE, STREET, STUDENT_REGISTRATION_TXT, ZIP } from '../../texts'
-import { createUser } from '../../api/loginAPIs'
-import { roleOptions } from '../../mapping/dataMapping'
+import { createUser } from '../../api/userApi'
+import { roleWithoutAdmin } from '../../mapping/dataMapping'
 
 const RegistrationPage = () => {
   const dispatch = useDispatch()
@@ -19,8 +19,9 @@ const RegistrationPage = () => {
     phone: '',
     dateOfBirth: '',
     admissionDate: '',
-    password: '',
-    confirmPassword: ''
+    // password: '',
+    // confirmPassword: '',
+    role: roleWithoutAdmin[0].value
   }
   
   const [userData, setUserData] = useState(initialState)
@@ -95,19 +96,19 @@ const RegistrationPage = () => {
     })
   }
 
-  const setPassword = (e) => {
-    const password = e.target.value;
-    setUserData((oldData) => {
-      return { ...oldData, password }
-    })
-  }
+  // const setPassword = (e) => {
+  //   const password = e.target.value;
+  //   setUserData((oldData) => {
+  //     return { ...oldData, password }
+  //   })
+  // }
 
-  const setConfirmPassword = (e) => {
-    const confirmPassword = e.target.value;
-    setUserData((oldData) => {
-      return { ...oldData, confirmPassword }
-    })
-  }
+  // const setConfirmPassword = (e) => {
+  //   const confirmPassword = e.target.value;
+  //   setUserData((oldData) => {
+  //     return { ...oldData, confirmPassword }
+  //   })
+  // }
 
   const setRole = (e) => {
     const role = e.target.value
@@ -141,27 +142,31 @@ const RegistrationPage = () => {
       errs.push(ERR_PHONE)
     }
 
-    if (!validatePassword(userData.password)) {
-      errs.push(ERR_PASS_FORMAT)
-    }
+    // if (!validatePassword(userData.password)) {
+    //   errs.push(ERR_PASS_FORMAT)
+    // }
     
-    if (!validateConfirmPassword(userData.password, userData.confirmPassword)) {
-      errs.push(ERR_CONFIRM_PASS)
-    }
-
-    console.log('=================')
-    console.log('================= ', userData)
-    console.log('=================')
+    // if (!validateConfirmPassword(userData.password, userData.confirmPassword)) {
+    //   errs.push(ERR_CONFIRM_PASS)
+    // }
 
     const body = {
       firstName: userData.firstName,
       lastName: userData.lastName,
       email: userData.email,
       admissionDate: userData.admissionDate,
-      dob: userData.dateOfBirth
+      dob: userData.dateOfBirth,
+      role: userData.role,
+      phone_number: userData.phone,
+      address: {
+        street: userData.street,
+        city: userData.city,
+        zip: userData.zip,
+        state: userData.state
+      }
     }
     setErrors([...errors, ...errs])
-    const result = await createUser(userData)
+    const result = await createUser(body)
     dispatch(saveUser(userData))
     setUserData(initialState)
   }
@@ -270,7 +275,7 @@ const RegistrationPage = () => {
             className='form-select'
             name='role'
             value={userData.role}>
-            {roleOptions.map(role => <option
+            {roleWithoutAdmin.map(role => <option
               key={role.label}
               value={role.value}>{role.label}</option>)}
           </select>
@@ -313,7 +318,7 @@ const RegistrationPage = () => {
             required
             value={userData.admissionDate} />
         </div>
-        <div className='mb-3'>
+        {/* <div className='mb-3'>
           <label
             htmlFor='psw'
             className='form-label'><b>{PASSWORD}</b></label>
@@ -325,9 +330,9 @@ const RegistrationPage = () => {
             name='psw'
             required
             value={userData.password} />
-        </div>
+        </div> */}
 
-        <div className='mb-3'>
+        {/* <div className='mb-3'>
           <label
             htmlFor='confirm-psw'
             className='form-label'><b>{CONFIRM_PASSWORD}</b></label>
@@ -339,7 +344,7 @@ const RegistrationPage = () => {
             name='confirm-psw'
             required
             value={userData.confirmPassword} />
-        </div>
+        </div> */}
         {errors.length > 0 ? <ul>{errors.map(err => <li key={err} className='error_message'>{err}</li>)}</ul> : ''}
         <button
           type='submit'

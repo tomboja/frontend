@@ -8,8 +8,14 @@ import AboutPage from "../components/admin/AboutPage"
 import { ABC_UNIVERSITY } from "../texts"
 import UserMenus from "./UserMenus"
 import RegistrationPage from "../components/admin/RegistrationPage"
+import { useSelector } from "react-redux"
+import AdminPage from "../components/admin/AdminPage"
+import { ADMIN_USER, FACULTY_USER, REGISTRAR_USER, STUDENT_USER } from "../consts"
+import RolebaseHomepage from "../componentUtils/homepageBasedOnRole"
 
 const PageRoutes = () => {
+  const activeUser = useSelector(state => state.activeUser)
+  const role = activeUser ? activeUser.role : null
   return (
     <>
       <nav className="nav">
@@ -23,7 +29,9 @@ const PageRoutes = () => {
       <Routes>
         {/* <Route path='/' element={<LoginPage />}></Route> */}
         <Route path='/' element={<CourseOfferings />}></Route>
-        <Route path="/AddCourse" element={<AddCourse />}></Route>
+        {/* <Route path="/AddCourse" element={<AddCourse />}></Route> */}
+        <Route path='/' element={<RolebaseHomepage role = {role}/>}></Route>
+
         <Route path='/courses' element={<CourseOfferings />}></Route>
         <Route path='/createUser' element={<RegistrationPage />}></Route>
         <Route path='/aboutus' element={<AboutPage />}></Route>

@@ -1,10 +1,14 @@
 import { DateTime, Interval } from "luxon";
 
 export const validateEmail = (email) => {
-  return true;
+  return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
 }
 
-export const validatePassword = (pw, confirmPw) => {
+export const validatePassword = (pw) => {
+  return pw.match(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/);
+}
+
+export const validateConfirmPassword = (pw, confirmPw) => {
   return pw === confirmPw;
 }
 
@@ -15,5 +19,10 @@ export const validateDateOfBirth = (dobStr) => {
 }
 
 export const validatePhone = (phone) => {
-  return phone.match(/[\D]/) !== null;
+  return phone.match(/^[0-9]{10}/);
+}
+
+export const validateUserId = (userId) => {
+  const res = userId.match(/^[0-9]{6}/);
+  return res;
 }

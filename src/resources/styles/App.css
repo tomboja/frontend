@@ -63,3 +63,8 @@ ul li .active {
   color: red;
   font-size: small;
 }
+
+.logout {
+  margin-bottom: 18px;
+  cursor: pointer;
+}

@@ -22,7 +22,7 @@ const RegistrarNav = () => {
   }
 
   return <>
-    <li><NavLink to="/" className="menuItem">{HOME}</NavLink></li>
+    <li><NavLink to="/create_course_offering" className="menuItem">Create Course Offering</NavLink></li>
     <li><NavLink to="/create_course" className="menuItem">{CREATE_COURSE}</NavLink></li>
     <li><NavLink to="/courses_list" className="menuItem">{COURSE_OFFERINGS}</NavLink></li>
     <li className="logout">{role ?

@@ -9,7 +9,9 @@
 /**Constant */ export const COURSE_UPDATE_API_URI = 'http://localhost:8082/api/v1/registration/courses'
 
 /**Constant */ export const ASSESSEMENT_API_URI = 'http://localhost:8080/assessements'
-/**Constant */ export const CREATE_USER_URL = 'http://localhost:8081/api/v1/admin/students'
+/**Constant */ export const CREATE_STUDENT_URL = 'http://localhost:8081/api/v1/admin/students'
+/**Constant */ export const CREATE_FACULTY_URL = 'http://localhost:8081/api/v1/admin/faculties'
+/**Constant */ export const CREATE_REGISTRAR_URL = 'http://localhost:8081/api/v1/admin/registrars'
 
 /**Constant */ export const CREATE_COURSE_URL = 'http://localhost:8082/api/v1/registration/courses'
 /**Constant */ export const UPDATE_COURSE_URL = 'http://localhost:8082/api/v1/registration/courses/{courseNumber}'

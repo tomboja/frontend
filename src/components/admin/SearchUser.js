@@ -14,7 +14,7 @@ const SearchUser = () => {
   
   const validateUserId = (userId) => {
     // UserId Valid Logic
-    return userId.length === 6
+    return userId.length === 9
   }
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const SearchUser = () => {
       setError(null)
       const userInfo = await getUserById(userId)
       dispatch(setSelectedUser(userInfo))
+      setFoundUser(userInfo)
     } else {
       setError(USER_ID_NOT_CORRECT)
     }
@@ -58,6 +59,15 @@ const SearchUser = () => {
         placeholder={SEARCH_BY_USER_ID} />
       <button type="submit">{SEARCH}</button>
     </form>
+    {foundUser ? <div className="foundUser">
+      <p>User details found in database: </p>
+      <div>User Number: {foundUser.userNumber}</div>
+      <div>First Name: {foundUser.firstName}</div>
+      <div>Last Name: {foundUser.lastName}</div>
+      <div>User Email: {foundUser.email}</div>
+      <div>Addmission Date: {foundUser.admissionDate}</div>
+      <div>Addmission Date: {foundUser.phone_number}</div>
+    </div> : null}
   </div>
 }
 

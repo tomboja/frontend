@@ -48,10 +48,10 @@ export const ADDMISSION_DATE = 'Addmission Date'
 export const CONFIRM_PASSWORD = 'Confirm Password'
 export const REGISTER = 'Register'
 
-export const COURSE_DETAIL= "Course Detail"
-export const COURSE_ID= "Course Id"
-export const COURSE_TITLE= "Course Title"
-export const COURSE_DEPARTMENT= "Department"
+export const COURSE_DETAIL = "Course Detail"
+export const COURSE_ID = "Course Id"
+export const COURSE_TITLE = "Course Title"
+export const COURSE_DEPARTMENT = "Department"
 export const SEARCH_MESSAGE = 'Search Student, Faculty or other system users by user id.'
 export const USER_ID_NOT_CORRECT = 'User id provided is not in correct format'
 export const STUDENT_COURSES = 'Student Courses'

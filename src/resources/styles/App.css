@@ -62,6 +62,7 @@ ul li .active {
 .error_message {
   color: red;
   font-size: small;
+  display: flex;
 }
 
 .logout {

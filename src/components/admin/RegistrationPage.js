@@ -322,7 +322,7 @@ const RegistrationPage = () => {
               value={role.value}>{role.label}</option>)}
           </select>
         </div>
-        {userData.role === STUDENT_USER ? '' : extraFields}
+        {userData.role === STUDENT_USER ? null : extraFields}
         <div className='mb-3'>
           <label
             htmlFor='phone'
@@ -348,19 +348,20 @@ const RegistrationPage = () => {
             required
             value={userData.dateOfBirth} />
         </div>
-        <div className='mb-3'>
-          <label
-            htmlFor='admitdate'
-            className='form-label'><b>{ADDMISSION_DATE}</b></label>
-          <input
-            onChange={setAdmitDate}
-            className='form-control'
-            type='date'
-            placeholder={ADDMISSION_DATE}
-            name='admitdate'
-            required
-            value={userData.admissionDate} />
-        </div>
+        {userData.role === STUDENT_USER ?
+          <div className='mb-3'>
+            <label
+              htmlFor='admitdate'
+              className='form-label'><b>{ADDMISSION_DATE}</b></label>
+            <input
+              onChange={setAdmitDate}
+              className='form-control'
+              type='date'
+              placeholder={ADDMISSION_DATE}
+              name='admitdate'
+              required
+              value={userData.admissionDate} />
+          </div> : null }
         {/* <div className='mb-3'>
           <label
             htmlFor='psw'

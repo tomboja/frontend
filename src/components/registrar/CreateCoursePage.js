@@ -3,6 +3,10 @@ import { COURSE_NUMBER, COURSE_TITLE, COURSE_CREDHOURS, COURSE_LEVEL, COURSE_HEA
 import { courseLevels } from "../../mapping/dataMapping"
 import '../../resources/styles/styles.css'
 import { createCourse } from "../../api/courseAPIs"
+import ErrorComponent from "../ErrorComponent/ErrorComponent"
+
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const CreateCoursePage = () => {
     const initialState = {
@@ -13,7 +17,12 @@ const CreateCoursePage = () => {
     }
     const [courseData, setCourseData] = useState(initialState)
     const [errors, setError] = useState([])
+    const [success, setSuccess] = useState()
     const courseNumberRef = useRef()
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
 
     const setCourseNumber = (e) => {
         const val = e.target.value
@@ -43,7 +52,16 @@ const CreateCoursePage = () => {
             level: courseData.level,
             credit: courseData.creditHours
         }
-        const result = await createCourse(reqBody)
+        await createCourse(reqBody).then(result => {
+            if (result.error) {
+                setError({ fail: result.error })
+            } else {
+                setError({ fail: null })
+                setSuccess({ ...result.data })
+                setShow(true)
+                setCourseData(initialState)
+            }
+        })
     }
 
     return (
@@ -108,9 +126,34 @@ const CreateCoursePage = () => {
                             value={level.value}>{level.label}</option>)}
                     </select>
                 </div>
-                { }
-                <button type='submit' className='btn btn-prime'>{COURSE_BUTTON}</button>
+                {errors.fail
+                    ? <ErrorComponent
+                        className='blockError'
+                        errorMessage='Course with same course number exists' />
+                    : null}
+                <button
+                    type='submit'
+                    className='btn btn-prime'>{COURSE_BUTTON}</button>
             </form>
+            
+            
+
+            <Modal show={show} onHide={handleClose} animation={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Course with following information created</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div><span>Course Number: </span> {courseData.courseNumber}</div>
+                    <div><span>Course Title: </span> {courseData.title}</div>
+                    <div><span>Course Credits: </span> {courseData.creditHours}</div>
+                    <div><span>Course Level: </span> {courseData.level}</div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }

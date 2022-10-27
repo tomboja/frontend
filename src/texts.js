@@ -72,3 +72,12 @@ export const COURSE_BUTTON = 'Create'
 
 export const COURSE_NUMBER_ERROR = 'Course Number can not be greater than 300 or less than 599'
 
+
+export const MAKE_PAYMENT = "Make Payment"
+export const CARD_NUMBER = "Card Number"
+export const CARD_NAME = "Name on the Card"
+export const CARD_PIN = "ENTER CVV code"
+export const CARD_EXPIRE_DATE = "Enter Expire Month/Year"
+export const PAYMENT_BUTTON = "Pay"
+
+

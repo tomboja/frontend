@@ -17,6 +17,7 @@ export const getAllCourse = () => {
         courseTitle:'FPP',
         creditHours: 4,
         department: 'compro',
+        enrolment_id:5,
         enroll_status:0
       },
       {
@@ -24,6 +25,7 @@ export const getAllCourse = () => {
           courseTitle:'MPP',
           creditHours: 4,
           department: 'compro',
+          enrolment_id:2,
           enroll_status: 1
         },
         {
@@ -31,6 +33,7 @@ export const getAllCourse = () => {
           courseTitle:'CPP',
           creditHours: 4,
           department: 'compro',
+          enrolment_id:3,
           enroll_status: 1
         }
   ]

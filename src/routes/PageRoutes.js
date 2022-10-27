@@ -36,7 +36,7 @@ const PageRoutes = () => {
         <Route path="/payment" element={<Payment />}></Route>
         <Route path='/' element={<RolebaseHomepage role = {role}/>}></Route>
         <Route path='/courses' element={<CourseOfferings />}></Route>
-        <Route path='/course_offerings' element={<StudentCourseOfferings />}></Route>
+        <Route path='/my_course_offerings' element={<StudentCourseOfferings />}></Route>
         <Route path='/createUser' element={<RegistrationPage />}></Route>
         <Route path='/create_course' element={<CreateCoursePage />}></Route>
         <Route path='/aboutus' element={<AboutPage />}></Route>

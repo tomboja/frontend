@@ -34,6 +34,7 @@ useEffect(() => {
   }
 }, [])
 
+
 const renderCourseDetails = (course) => {
   setSelectedCourse(course)
 }
@@ -69,8 +70,9 @@ if (selectedCourse) {
             <td>{course.courseTitle}</td>
             <td>{course.department}</td>
             <td>
-              {course.enroll_status? <Link onClick={() => renderCourseDetails(course)} className ="btn btn-primary">View</Link>
-              :<Link className ="btn btn-primary" to="/payment">Make Payment</Link>}
+              {course.enroll_status
+              ? <Link onClick={() => renderCourseDetails(course)} className ="btn btn-primary">View</Link>
+              :<Link className ="btn btn-primary" to="/payment" state={{ from: course.enrolment_id }}>Make Payment</Link>}
             </td>
             
         </tr>

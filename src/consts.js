@@ -9,6 +9,7 @@
 /**Constant */ export const CREATE_USER_URL = 'http://localhost:8081/api/v1/admin/students'
 
 /**Constant */ export const CREATE_COURSE_URL = 'http://localhost:8082/api/v1/registration/courses'
+/**Constant */ export const PAYMENT_URL = 'http://localhost:8082/api/v1/payment/'
 
 /**Constant */ export const ADMIN_USER = 'ADMIN'
 /**Constant */ export const STUDENT_USER = 'STUDENT'

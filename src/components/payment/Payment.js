@@ -1,28 +1,128 @@
-import axios from "axios"
+import { useRef, useState } from "react"
+import { CARD_NUMBER, CARD_NAME, CARD_PIN, MAKE_PAYMENT, PAYMENT_BUTTON, CARD_EXPIRE_DATE } from "../../texts"
+import { courseLevels } from "../../mapping/dataMapping"
+import '../../resources/styles/styles.css'
+import { makePayment } from "../../api/paymentAPIs"
+import { useLocation } from 'react-router-dom'
 
 
-export const Payment = () => {
-//   const dispatch = useDispatch();
-//   const [courses, setCourse] = useState([])
-//   const [selectedCourse, setSelectedCourse] = useState(null)
-//   const coursesFromReduxStore = useSelector(state => state.courseData)
+const Payment = () => {
+    const initialState = {
+        cardNumber: '',
+        title: '',
+        creditHours: 0,
+        level: courseLevels[0].value
+    }
+    const [cardData, setCardData] = useState(initialState)
+    const [errors, setError] = useState([])
+    const cardNumberRef = useRef()
+    
+    const location = useLocation()
+    const { from } = location.state
 
-return (
-<div className="containger">
-            <div className="w-75 mx-auto shadow p-5"></div>
-            <h2 className="text-center mb-4">Add course</h2>
-            <form></form>
-            <div className="form-group">
-                <input type ="text"
-                className="form-control form-control-lg"
-                placeholder="Enger Course Name"
-                courseTitle="coufseTitle"
-                />
+    const setCardNumber = (e) => {
+        const val = e.target.value
+        setCardData({ ...cardData, cardNumber: val })
+    }
 
-            </div>
-           
+    const setName = (e) => {
+        const name = e.target.value
+        setCardData({ ...cardData, name })
+    }
+
+    const setPin = (e) => {
+        const pin = e.target.value
+        setCardData({ ...cardData, pin })
+    }
+
+    const setExpiry = (e) => {
+        const expiry = e.target.value
+        setCardData({ ...cardData, expiry })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const reqBody = {
+            cardNumber: cardData.cardNumber,
+            name: cardData.name,
+            pin: cardData.pin,
+            expiry: cardData.expiry,
+            enrolmentId: from
+        }
+        console.log(from);
+        const result = await makePayment(reqBody)
+    }
+
+   
+    return (
+        <div className="container">
+            <h4>{MAKE_PAYMENT}</h4>
+            <form onSubmit={handleSubmit}>
+                <div className='mb-3'>
+                    <label
+                        htmlFor='cid'
+                        className='form-label'><b>{CARD_NUMBER}</b>
+                    </label>
+                    <p>{from}</p>
+                    <input type='hidden' name='enrolmentId' value={from}/>
+                    <input
+                        onChange={setCardNumber}
+                        className='form-control'
+                        type='text'
+                        placeholder={CARD_NUMBER}
+                        name='cid'
+                        required
+                        ref={cardNumberRef}
+                        value={cardData.cardNumber} />
+                </div>
+                <div className='mb-3'>
+                    <label
+                        htmlFor='name'
+                        className='form-label'><b>{CARD_NAME}</b>
+                    </label>
+                    <input
+                        onChange={setName}
+                        className='form-control'
+                        type='text'
+                        placeholder={CARD_NAME}
+                        name='title'
+                        required
+                        value={cardData.Name} />
+                </div>
+                <div className='mb-3'>
+                    <label
+                        htmlFor='credhours'
+                        className='form-label'><b>{CARD_PIN}</b>
+                    </label>
+                    <input
+                        onChange={setPin}
+                        className='form-control'
+                        type='text'
+                        placeholder={CARD_PIN}
+                        name='credhours'
+                        required
+                        value={cardData.pin} />
+                </div>
+                <div className='mb-3'>
+                    <label
+                        htmlFor='dept'
+                        className='form-label'><b>{CARD_EXPIRE_DATE}</b>
+                    </label>
+                    <input
+                        onChange={setExpiry}
+                        className='form-control'
+                        type='text'
+                        placeholder={CARD_EXPIRE_DATE}
+                        name='expiry'
+                        required
+                        value={cardData.expiry} />
+                
+                </div>
+                { }
+                <button type='submit' className='btn btn-prime'>{PAYMENT_BUTTON}</button>
+            </form>
         </div>
-)
+    )
 }
 
-export default Payment;
+export default Payment

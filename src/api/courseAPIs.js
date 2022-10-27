@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { COURSE_API_URI } from '../consts'
+import { COURSE_API_URI, CREATE_COURSE_URL } from '../consts'
 
 /**
  * All calls student related APIs go inhere
@@ -38,4 +38,11 @@ export const getAllCourse = () => {
 
 export const courseDetails = async (courseId) => {
 
+}
+
+
+export const createCourse = async (course) => {
+  return await axios.post(CREATE_COURSE_URL, course)
+    .then(result => result.data)
+    .catch(error => error.message)
 }

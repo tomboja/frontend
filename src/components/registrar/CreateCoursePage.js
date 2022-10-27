@@ -66,6 +66,7 @@ const CreateCoursePage = () => {
 
     return (
         <div className="container">
+            {console.log('***** ', success)}
             <h4>{COURSE_HEADING}</h4>
             <form onSubmit={handleSubmit}>
                 <div className='mb-3'>
@@ -143,10 +144,10 @@ const CreateCoursePage = () => {
                     <Modal.Title>Course with following information created</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div><span>Course Number: </span> {courseData.courseNumber}</div>
-                    <div><span>Course Title: </span> {courseData.title}</div>
-                    <div><span>Course Credits: </span> {courseData.creditHours}</div>
-                    <div><span>Course Level: </span> {courseData.level}</div>
+                    <div><span>Course Number: </span> {success.courseNumber}</div>
+                    <div><span>Course Title: </span> {success.title}</div>
+                    <div><span>Course Credits: </span> {success.creditHours}</div>
+                    <div><span>Course Level: </span> {success.level}</div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

@@ -44,20 +44,23 @@ const SearchUser = () => {
   }
 
   return <div>
-    <form onSubmit={searchUserById}>
+    <form className="row g-3" onSubmit={searchUserById}>
       {error ? <ErrorComponent
         style={{display: 'flex'}}
         errorId='searchUserError'
         errorMessage={error} />
         : null}
-      
-      <input
-        className="searchUser"
-        type='text'
-        onChange={searchUser}
-        value={userId}
-        placeholder={SEARCH_BY_USER_ID} />
-      <button type="submit">{SEARCH}</button>
+      <div className="col">
+        <input
+          className="form-control"
+          type='search'
+          onChange={searchUser}
+          value={userId}
+          placeholder={SEARCH_BY_USER_ID} />
+      </div>
+      <div className="col">
+        <button className="btn btn-prime" type="submit">{SEARCH}</button>
+      </div>
     </form>
     {foundUser ? <div className="foundUser">
       <p>User details found in database: </p>

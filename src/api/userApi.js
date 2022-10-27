@@ -21,10 +21,6 @@ export const getUserById = async (userId) => {
 
 
 export const createUser = async (body) => {
-  console.log('===========')
-  console.log('=========== yvwufdy ', body)
-  console.log('===========')
-  console.log('Called ', body)
   const URL = body.role === STUDENT_USER
     ? `${ADMIN_BASE_URL}/students`
     : body.role === FACULTY_USER ?
@@ -32,9 +28,6 @@ export const createUser = async (body) => {
       : body.role === REGISTRAR_USER ?
         `${ADMIN_BASE_URL}/registrars`
         : null
-      
-  console.log('URL ', URL)
-  console.log('BODY ', body)
   return await axios.post(URL, body)
     .then(res => res.data)
     .catch(error => error.message)

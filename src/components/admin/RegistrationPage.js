@@ -45,13 +45,6 @@ const RegistrationPage = () => {
     })
   }
 
-  // const setUserId = (e) => {
-  //   const userId = e.target.value
-  //   setUserData((oldData) => {
-  //     return { ...oldData, userId }
-  //   })
-  // }
-
   const setCity = (e) => {
     const city = e.target.value
     setUserData({...userData, city})
@@ -99,20 +92,6 @@ const RegistrationPage = () => {
       return { ...oldData, admissionDate }
     })
   }
-
-  // const setPassword = (e) => {
-  //   const password = e.target.value;
-  //   setUserData((oldData) => {
-  //     return { ...oldData, password }
-  //   })
-  // }
-
-  // const setConfirmPassword = (e) => {
-  //   const confirmPassword = e.target.value;
-  //   setUserData((oldData) => {
-  //     return { ...oldData, confirmPassword }
-  //   })
-  // }
 
   const setRole = (e) => {
     const role = e.target.value
@@ -189,6 +168,11 @@ const RegistrationPage = () => {
         zip: userData.zip,
         state: userData.state
       }
+    }
+    if (userData.role !== STUDENT_USER) {
+      body.salary = userData.salary
+      body.hireDate = userData.hireDate
+      body.department = userData.department
     }
     setErrors([...errors, ...errs])
     const result = await createUser(body)

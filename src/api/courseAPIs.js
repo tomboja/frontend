@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { COURSE_API_URI, CREATE_COURSE_URL } from '../consts'
+import { COURSE_API_URI, CREATE_COURSE_URL, UPDATE_COURSE_URL } from '../consts'
 
 /**
  * All calls student related APIs go inhere
@@ -13,26 +13,26 @@ export const getAllCourse = () => {
   // Return mock data for now
   return [
     {
-        courseId:'CS390',
-        courseTitle:'FPP',
-        creditHours: 4,
-        department: 'compro',
+        courseNumber:'CS390',
+        title:'FPP',
+        credit: 4,
+        level: 'compro',
         enrolment_id:5,
         enroll_status:0
       },
       {
-          courseId:'CS490',
-          courseTitle:'MPP',
-          creditHours: 4,
-          department: 'compro',
+          courseNumber:'CS490',
+          title:'MPP',
+          credit: 4,
+          level: 'compro',
           enrolment_id:2,
           enroll_status: 1
         },
         {
-          courseId:'CS590',
-          courseTitle:'CPP',
-          creditHours: 4,
-          department: 'compro',
+          courseNumber:'CS590',
+          title:'CPP',
+          credit: 4,
+          level: 'compro',
           enrolment_id:3,
           enroll_status: 1
         }
@@ -46,6 +46,13 @@ export const courseDetails = async (courseId) => {
 
 export const createCourse = async (course) => {
   return await axios.post(CREATE_COURSE_URL, course)
+    .then(result => result.data)
+    .catch(error => error.message)
+}
+
+export const updateCourse = async (course) => {
+  console.log(course)
+  return await axios.put(CREATE_COURSE_URL+"/"+course.courseNumber, course)
     .then(result => result.data)
     .catch(error => error.message)
 }

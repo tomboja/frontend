@@ -1,86 +1,95 @@
-import axios from "axios"
 import React, { useEffect, useState } from "react"
+import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux"
 import { getAllCourse } from "../../api/courseAPIs"
-import { COURSE_API_URI } from "../../consts"
-import { saveCourse, resetCourse } from "../../reducers/courseReducer"
-import {Link} from "react-router-dom"
-import { COURSE_DEPARTMENT, COURSE_ID, COURSE_TITLE } from "../../texts"
+import { resetCourse, loadCourses } from "../../reducers/courseReducer"
+import { Link } from "react-router-dom"
+import { COURSE_DEPARTMENT, COURSE_ID, COURSE_CREDIT, COURSE_OFFERINGS, COURSE_TITLE, LIST_OF_COURSES, VIEW,COURSE_ACTION,COURSE_EDIT_BUTTON,COURSE_DELETE_BUTTON } from "../../texts"
+import {DELETE_COURSE_URL } from '../../consts'
+import CourseDetail from "./CourseDetails"
+import CourseUpdate from "./CourseUpdate"
 
 export const CourseOfferings = () => {
   const dispatch = useDispatch();
   const [courses, setCourse] = useState([])
   const [selectedCourse, setSelectedCourse] = useState(null)
+  const [updateCourse, setUpdateCourse] = useState(null)
+  const [deleteCourse, setDeleteCourse] = useState(null)
   const coursesFromReduxStore = useSelector(state => state.courseData)
 
- 
-  
+  useEffect(() => {
+    const fetchCourses = async () => await getAllCourse()
+    fetchCourses()
+      .then(result => {
+        dispatch(loadCourses(result))
+        setCourse(result)
+      }).catch(error => {
+        console.log('Error fetching ', error)
+      })
+    
+    return () => {
+      dispatch(resetCourse())
+    }
+  }, [dispatch])
 
-
-useEffect(() => {
-  // const studentData = () => {
-  //   const { data } = await axios
-  //     .get(STUDENT_API_URI)
-  //     .then(result => result.data)
-  //     .catch(error => {
-  //     return 'Error fetching students data'
-  //   })
-
-  //   return getAllStudents()
-  // }
-
-  const courses = getAllCourse()
-  dispatch(saveCourse(courses))
-  setCourse(courses)
-  return () => {
-    dispatch(resetCourse())
+  const renderCourseDetails = (course) => {
+    setSelectedCourse(course)
   }
-}, [])
 
-const renderCourseDetails = (course) => {
-  setSelectedCourse(course)
+  const renderCourseUpdate = (course) => {
+    setUpdateCourse(course)
+  }
+  const renderCourseDelete = (course) => {
+    setDeleteCourse(course)
+    return <CourseUpdate updateCourse={updateCourse}/>
+  }
+
+  const onDelete = (courseNumber) => {
+    axios.delete(DELETE_COURSE_URL+"/"+courseNumber)
+  }
+
+  if (selectedCourse) {
+    return <CourseDetail selectedCourse={selectedCourse} />
+  }
+  else if (updateCourse) {
+    return <CourseUpdate updateCourse={updateCourse} />
+  }
+  else return <div className="container">
+    <h1>{COURSE_OFFERINGS}</h1>
+    <h4>{LIST_OF_COURSES}</h4>
+    {/* <Link className ="btn btn-primary" to="/AddCourse">Add Course</Link> */}
+    <table>
+      <thead>
+        <tr>
+          <th className="tableheading">{COURSE_ID}</th>
+          <th className="tableheading">{COURSE_TITLE}</th>
+          <th className="tableheading">{COURSE_DEPARTMENT}</th>
+          <th className="tableheading">{COURSE_CREDIT}</th>
+          <th className="tableheading">{COURSE_ACTION}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {console.log('coursesFromReduxStore ', coursesFromReduxStore)}
+        {
+
+          coursesFromReduxStore.map((course, index, array) => {
+            return <tr key={index}>
+              <td className="tabledata">{course.courseNumber}</td>
+              <td className="tabledata">{course.title}</td>
+              <td className="tabledata">{course.level}</td>
+              <td className="tabledata">{course.credit}</td>
+              <td className="tabledata">
+                <Link onClick={() => renderCourseDetails(course)} className="btn btn-prime">{VIEW}</Link>
+                <Link onClick={() => renderCourseUpdate(course)} className="btn btn-prime">{COURSE_EDIT_BUTTON}</Link>
+                <Link  onClick={() => onDelete(course.courseNumber)} className="btn btn-danger">{COURSE_DELETE_BUTTON}</Link>
+              
+              </td>
+            </tr>
+          })
+        }
+      </tbody>
+    </table>
+  </div>
 }
 
-if (selectedCourse) {
-  return <div>
-    <h1></h1>
-   <p>{COURSE_ID}: {selectedCourse.courseId}</p>
-   <p>{COURSE_TITLE}: {selectedCourse.courseTitle}</p>
-   <p>{COURSE_DEPARTMENT}: {selectedCourse.department}</p>
-  </div>
-} else return <div className="container">
-    <h1>Course Offerings Page</h1>
-    <h4>List of courses</h4>
-  {/* <Link className ="btn btn-primary" to="/AddCourse">Add Course</Link> */}
-  <table> 
-        <thead>
-            <tr>
-            <th>{COURSE_ID}</th>
-          <th>{COURSE_TITLE}</th>
-          <th>{COURSE_DEPARTMENT}</th>
-            </tr>
-        </thead>
-        <tbody>
-         
-        
-    {
-      coursesFromReduxStore.map((course, index, array) => {
-        return  <tr key = {course.courseId}>
-           <td>{course.courseId}</td>
-            <td>{course.courseTitle}</td>
-            <td>{course.department}</td>
-            <td>
-               <Link onClick={() => renderCourseDetails(course)} className ="btn btn-primary">View</Link>
-               
-            </td>
-            
-        </tr>
-          
-       })
-    }
-    </tbody>
-           </table>
-  </div>
-
-  }
-export default CourseOfferings;
+export default CourseOfferings

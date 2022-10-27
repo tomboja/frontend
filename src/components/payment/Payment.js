@@ -16,7 +16,7 @@ const Payment = () => {
     const [cardData, setCardData] = useState(initialState)
     const [errors, setError] = useState([])
     const cardNumberRef = useRef()
-    
+
     const location = useLocation()
     const { from } = location.state
 
@@ -63,12 +63,14 @@ const Payment = () => {
                         htmlFor='cid'
                         className='form-label'><b>{CARD_NUMBER}</b>
                     </label>
-                    <p>{from}</p>
+                    {/* <p>{from}</p> */}
                     <input type='hidden' name='enrolmentId' value={from}/>
                     <input
                         onChange={setCardNumber}
                         className='form-control'
-                        type='text'
+                        type='number'
+                        min="-999999999999999" 
+                        max="999999999999"
                         placeholder={CARD_NUMBER}
                         name='cid'
                         required
@@ -97,21 +99,24 @@ const Payment = () => {
                     <input
                         onChange={setPin}
                         className='form-control'
-                        type='text'
+                        type='number'
+                        maxLength={3}
                         placeholder={CARD_PIN}
-                        name='credhours'
+                        name='pin'
                         required
                         value={cardData.pin} />
                 </div>
                 <div className='mb-3'>
                     <label
-                        htmlFor='dept'
+                        htmlFor='expiry'
                         className='form-label'><b>{CARD_EXPIRE_DATE}</b>
                     </label>
                     <input
                         onChange={setExpiry}
                         className='form-control'
-                        type='text'
+                        type='number'
+                        min="-999" 
+                        max="9999"
                         placeholder={CARD_EXPIRE_DATE}
                         name='expiry'
                         required

@@ -11,3 +11,22 @@
 .inputError {
   border-color: red;
 }
+
+.tableheading {
+  padding: 20px 50px 20px 0;
+  text-align: left;
+  background-color: aliceblue;
+}
+
+.tabledata {
+  margin-top: 20px;
+}
+
+tbody tr {
+  padding-top: 10px;
+}
+
+
+.coursedetails {
+  font-weight: bold;
+}

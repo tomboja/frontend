@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { validatePassword, validateConfirmPassword, validateDateOfBirth, validatePhone, validateZip, validateEmail } from '../../utils/formUtils'
+import { validateDateOfBirth, validatePhone, validateZip, validateEmail } from '../../utils/formUtils'
 import { saveUser } from '../../reducers/userReducer'
-import { ADDMISSION_DATE, CITY, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, ERR_CONFIRM_PASS, ERR_DOB, ERR_PASS_FORMAT, ERR_PHONE, ERR_USER_ID, ERR_ZIP, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, ROLE, STATE, STREET, STUDENT_REGISTRATION_TXT, ZIP } from '../../texts'
-import { createUser } from '../../api/loginAPIs'
-import { roleOptions } from '../../mapping/dataMapping'
+import { ADDMISSION_DATE, CITY, DATE_OF_BIRTH, DEPARTMENT, EMAIL, ERR_DOB, ERR_PHONE, ERR_USER_ID, ERR_ZIP, FIRST_NAME, HIRE_DATE, LAST_NAME, PHONE_NUMBER, REGISTER, ROLE, SALARY, STATE, STREET, STUDENT_REGISTRATION_TXT, ZIP } from '../../texts'
+import { createUser } from '../../api/userApi'
+import { roleWithoutAdmin } from '../../mapping/dataMapping'
+import { STUDENT_USER } from '../../consts'
 
 const RegistrationPage = () => {
   const dispatch = useDispatch()
@@ -15,12 +16,16 @@ const RegistrationPage = () => {
     state: '',
     street: '',
     zip: '',
+    salary: 0,
+    hireDate: '',
+    department: '',
     email: '',
     phone: '',
     dateOfBirth: '',
     admissionDate: '',
-    password: '',
-    confirmPassword: ''
+    // password: '',
+    // confirmPassword: '',
+    role: roleWithoutAdmin[0].value
   }
   
   const [userData, setUserData] = useState(initialState)
@@ -39,13 +44,6 @@ const RegistrationPage = () => {
       return { ...oldData, lastName }
     })
   }
-
-  // const setUserId = (e) => {
-  //   const userId = e.target.value
-  //   setUserData((oldData) => {
-  //     return { ...oldData, userId }
-  //   })
-  // }
 
   const setCity = (e) => {
     const city = e.target.value
@@ -95,24 +93,31 @@ const RegistrationPage = () => {
     })
   }
 
-  const setPassword = (e) => {
-    const password = e.target.value;
-    setUserData((oldData) => {
-      return { ...oldData, password }
-    })
-  }
-
-  const setConfirmPassword = (e) => {
-    const confirmPassword = e.target.value;
-    setUserData((oldData) => {
-      return { ...oldData, confirmPassword }
-    })
-  }
-
   const setRole = (e) => {
     const role = e.target.value
     setUserData((oldData) => {
       return { ...oldData, role }
+    })
+  }
+
+  const setSalary = (e) => {
+    const salary = e.target.value
+    setUserData((oldData) => {
+      return { ...oldData, salary }
+    })
+  }
+
+  const setHireDate = (e) => {
+    const hireDate = e.target.value
+    setUserData((oldData) => {
+      return { ...oldData, hireDate }
+    })
+  }
+
+  const setDepartment = (e) => {
+    const department = e.target.value
+    setUserData((oldData) => {
+      return { ...oldData, department }
     })
   }
 
@@ -124,10 +129,6 @@ const RegistrationPage = () => {
     if (!validateEmail(userData.email)) {
       errs.push(ERR_USER_ID)
     }
-    
-    // if (!validateUserId(userData.userId)) {
-    //   errs.push(ERR_USER_ID)
-    // }
     
     if (!validateZip(userData.zip)) {
       errs.push(ERR_ZIP)
@@ -141,30 +142,71 @@ const RegistrationPage = () => {
       errs.push(ERR_PHONE)
     }
 
-    if (!validatePassword(userData.password)) {
-      errs.push(ERR_PASS_FORMAT)
-    }
-    
-    if (!validateConfirmPassword(userData.password, userData.confirmPassword)) {
-      errs.push(ERR_CONFIRM_PASS)
-    }
-
-    console.log('=================')
-    console.log('================= ', userData)
-    console.log('=================')
-
     const body = {
       firstName: userData.firstName,
       lastName: userData.lastName,
       email: userData.email,
       admissionDate: userData.admissionDate,
-      dob: userData.dateOfBirth
+      dob: userData.dateOfBirth,
+      role: userData.role,
+      phone_number: userData.phone,
+      address: {
+        street: userData.street,
+        city: userData.city,
+        zip: userData.zip,
+        state: userData.state
+      }
+    }
+    if (userData.role !== STUDENT_USER) {
+      body.salary = userData.salary
+      body.hireDate = userData.hireDate
+      body.department = userData.department
     }
     setErrors([...errors, ...errs])
-    const result = await createUser(userData)
+    const result = await createUser(body)
     dispatch(saveUser(userData))
     setUserData(initialState)
   }
+
+  const extraFields = (
+  <>
+    <div className='mb-3'>
+      <label
+        htmlFor='salary'
+        className='form-label'><b>{SALARY}</b></label>
+      <input
+        onChange={setSalary}
+        className='form-control'
+        type='number'
+        placeholder={SALARY}
+        name='salary'
+        value={userData.salary} />
+    </div>
+    <div className='mb-3'>
+      <label
+        htmlFor='hireDate'
+        className='form-label'><b>{HIRE_DATE}</b></label>
+      <input
+        onChange={setHireDate}
+        className='form-control'
+        type='date'
+        placeholder={HIRE_DATE}
+        name='hireDate'
+        value={userData.hireDate} />
+    </div>
+    <div className='mb-3'>
+      <label
+        htmlFor='department'
+        className='form-label'><b>{DEPARTMENT}</b></label>
+      <input
+        onChange={setDepartment}
+        className='form-control'
+        type='text'
+        placeholder={DEPARTMENT}
+        name='department'
+        value={userData.department} />
+    </div>
+  </>)
 
   return (
     <div className='container'>
@@ -270,11 +312,12 @@ const RegistrationPage = () => {
             className='form-select'
             name='role'
             value={userData.role}>
-            {roleOptions.map(role => <option
+            {roleWithoutAdmin.map(role => <option
               key={role.label}
               value={role.value}>{role.label}</option>)}
           </select>
         </div>
+        {userData.role === STUDENT_USER ? '' : extraFields}
         <div className='mb-3'>
           <label
             htmlFor='phone'
@@ -313,7 +356,7 @@ const RegistrationPage = () => {
             required
             value={userData.admissionDate} />
         </div>
-        <div className='mb-3'>
+        {/* <div className='mb-3'>
           <label
             htmlFor='psw'
             className='form-label'><b>{PASSWORD}</b></label>
@@ -325,9 +368,9 @@ const RegistrationPage = () => {
             name='psw'
             required
             value={userData.password} />
-        </div>
+        </div> */}
 
-        <div className='mb-3'>
+        {/* <div className='mb-3'>
           <label
             htmlFor='confirm-psw'
             className='form-label'><b>{CONFIRM_PASSWORD}</b></label>
@@ -339,7 +382,7 @@ const RegistrationPage = () => {
             name='confirm-psw'
             required
             value={userData.confirmPassword} />
-        </div>
+        </div> */}
         {errors.length > 0 ? <ul>{errors.map(err => <li key={err} className='error_message'>{err}</li>)}</ul> : ''}
         <button
           type='submit'

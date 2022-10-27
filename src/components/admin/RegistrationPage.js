@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { validatePassword, validateConfirmPassword, validateDateOfBirth, validatePhone, validateZip, validateEmail } from '../../utils/formUtils'
 import { saveUser } from '../../reducers/userReducer'
-import { ADDMISSION_DATE, CITY, CONFIRM_PASSWORD, DATE_OF_BIRTH, EMAIL, ERR_CONFIRM_PASS, ERR_DOB, ERR_PASS_FORMAT, ERR_PHONE, ERR_USER_ID, ERR_ZIP, FIRST_NAME, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, ROLE, STATE, STREET, STUDENT_REGISTRATION_TXT, ZIP } from '../../texts'
+import { ADDMISSION_DATE, CITY, CONFIRM_PASSWORD, DATE_OF_BIRTH, DEPARTMENT, EMAIL, ERR_CONFIRM_PASS, ERR_DOB, ERR_PASS_FORMAT, ERR_PHONE, ERR_USER_ID, ERR_ZIP, FIRST_NAME, HIRE_DATE, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, ROLE, SALARY, STATE, STREET, STUDENT, STUDENT_REGISTRATION_TXT, ZIP } from '../../texts'
 import { createUser } from '../../api/userApi'
 import { roleWithoutAdmin } from '../../mapping/dataMapping'
+import { STUDENT_USER } from '../../consts'
 
 const RegistrationPage = () => {
   const dispatch = useDispatch()
@@ -15,6 +16,9 @@ const RegistrationPage = () => {
     state: '',
     street: '',
     zip: '',
+    salary: 0,
+    hireDate: '',
+    department: '',
     email: '',
     phone: '',
     dateOfBirth: '',
@@ -117,6 +121,27 @@ const RegistrationPage = () => {
     })
   }
 
+  const setSalary = (e) => {
+    const salary = e.target.value
+    setUserData((oldData) => {
+      return { ...oldData, salary }
+    })
+  }
+
+  const setHireDate = (e) => {
+    const hireDate = e.target.value
+    setUserData((oldData) => {
+      return { ...oldData, hireDate }
+    })
+  }
+
+  const setDepartment = (e) => {
+    const department = e.target.value
+    setUserData((oldData) => {
+      return { ...oldData, department }
+    })
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -170,6 +195,46 @@ const RegistrationPage = () => {
     dispatch(saveUser(userData))
     setUserData(initialState)
   }
+
+  const extraFields = (
+  <>
+    <div className='mb-3'>
+      <label
+        htmlFor='salary'
+        className='form-label'><b>{SALARY}</b></label>
+      <input
+        onChange={setSalary}
+        className='form-control'
+        type='number'
+        placeholder={SALARY}
+        name='salary'
+        value={userData.salary} />
+    </div>
+    <div className='mb-3'>
+      <label
+        htmlFor='hireDate'
+        className='form-label'><b>{HIRE_DATE}</b></label>
+      <input
+        onChange={setHireDate}
+        className='form-control'
+        type='date'
+        placeholder={HIRE_DATE}
+        name='hireDate'
+        value={userData.hireDate} />
+    </div>
+    <div className='mb-3'>
+      <label
+        htmlFor='department'
+        className='form-label'><b>{DEPARTMENT}</b></label>
+      <input
+        onChange={setDepartment}
+        className='form-control'
+        type='text'
+        placeholder={DEPARTMENT}
+        name='department'
+        value={userData.department} />
+    </div>
+  </>)
 
   return (
     <div className='container'>
@@ -280,6 +345,7 @@ const RegistrationPage = () => {
               value={role.value}>{role.label}</option>)}
           </select>
         </div>
+        {userData.role === STUDENT_USER ? '' : extraFields}
         <div className='mb-3'>
           <label
             htmlFor='phone'

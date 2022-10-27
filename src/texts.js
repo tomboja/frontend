@@ -14,7 +14,7 @@ export const CREATE_USER = 'Create User'
 export const LOGOUT = 'Logout'
 
 export const ADMIN = 'Admin'
-export const STUDENT = 'Studnet'
+export const STUDENT = 'Student'
 export const REGISTRAR = 'Registrar'
 export const FACULTY = 'Faculty'
 
@@ -26,6 +26,9 @@ export const LOGIN = 'Login'
 export const HOME = 'Home'
 export const SEARCH = 'Search'
 export const SEARCH_BY_USER_ID = 'Search By User Id'
+export const SALARY = 'Salary'
+export const HIRE_DATE = 'Hire Date'
+export const DEPARTMENT = 'Department'
 
 export const ERROR_DURING_LOGIN = 'Error logging to the system. Try again'
 export const ERROR_DURING_REGISTER = 'Error registering. Please Try again'

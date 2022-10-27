@@ -6,9 +6,11 @@ import { ADDMISSION_DATE, CITY, DATE_OF_BIRTH, DEPARTMENT, EMAIL, ERR_DOB, ERR_P
 import { createUser } from '../../api/userApi'
 import { roleWithoutAdmin } from '../../mapping/dataMapping'
 import { STUDENT_USER } from '../../consts'
+import { useNavigate } from 'react-router-dom'
 
 const RegistrationPage = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const initialState = {
     firstName: '',
     lastName: '',
@@ -163,9 +165,12 @@ const RegistrationPage = () => {
       body.department = userData.department
     }
     setErrors([...errors, ...errs])
-    const result = await createUser(body)
-    dispatch(saveUser(userData))
-    setUserData(initialState)
+    if (errs.length === 0) {
+      const result = await createUser(body)
+      dispatch(saveUser(userData))
+      setUserData(initialState)
+      navigate('/searchUser')
+    }
   }
 
   const extraFields = (

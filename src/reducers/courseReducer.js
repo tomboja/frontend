@@ -11,7 +11,8 @@ const courseReducer = createSlice({
         courseData.push(...action.payload)
     },
     deleteCourse: () => { },
-    loadCourses: () => {},
+    loadCourses: (courses, action) => action.payload
+    ,
     resetCourse: () => initialState
   }
 })

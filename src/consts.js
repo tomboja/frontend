@@ -5,7 +5,8 @@
 /**Constant */ export const ADMIN_BASE_URL = 'http://localhost:8081/api/v1/admin'
 
 
-/**Constant */ export const COURSE_API_URI = 'http://localhost:8080/courses'
+/**Constant */ export const COURSE_API_URI = 'http://localhost:8082/api/v1/registration/courses'
+
 /**Constant */ export const ASSESSEMENT_API_URI = 'http://localhost:8080/assessements'
 /**Constant */ export const CREATE_USER_URL = 'http://localhost:8081/api/v1/admin/students'
 

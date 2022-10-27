@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { validatePassword, validateConfirmPassword, validateDateOfBirth, validatePhone, validateZip, validateEmail } from '../../utils/formUtils'
+import { validateDateOfBirth, validatePhone, validateZip, validateEmail } from '../../utils/formUtils'
 import { saveUser } from '../../reducers/userReducer'
-import { ADDMISSION_DATE, CITY, CONFIRM_PASSWORD, DATE_OF_BIRTH, DEPARTMENT, EMAIL, ERR_CONFIRM_PASS, ERR_DOB, ERR_PASS_FORMAT, ERR_PHONE, ERR_USER_ID, ERR_ZIP, FIRST_NAME, HIRE_DATE, LAST_NAME, PASSWORD, PHONE_NUMBER, REGISTER, ROLE, SALARY, STATE, STREET, STUDENT, STUDENT_REGISTRATION_TXT, ZIP } from '../../texts'
+import { ADDMISSION_DATE, CITY, DATE_OF_BIRTH, DEPARTMENT, EMAIL, ERR_DOB, ERR_PHONE, ERR_USER_ID, ERR_ZIP, FIRST_NAME, HIRE_DATE, LAST_NAME, PHONE_NUMBER, REGISTER, ROLE, SALARY, STATE, STREET, STUDENT_REGISTRATION_TXT, ZIP } from '../../texts'
 import { createUser } from '../../api/userApi'
 import { roleWithoutAdmin } from '../../mapping/dataMapping'
 import { STUDENT_USER } from '../../consts'
@@ -130,10 +130,6 @@ const RegistrationPage = () => {
       errs.push(ERR_USER_ID)
     }
     
-    // if (!validateUserId(userData.userId)) {
-    //   errs.push(ERR_USER_ID)
-    // }
-    
     if (!validateZip(userData.zip)) {
       errs.push(ERR_ZIP)
     }
@@ -145,14 +141,6 @@ const RegistrationPage = () => {
     if (!validatePhone(userData.phone)) {
       errs.push(ERR_PHONE)
     }
-
-    // if (!validatePassword(userData.password)) {
-    //   errs.push(ERR_PASS_FORMAT)
-    // }
-    
-    // if (!validateConfirmPassword(userData.password, userData.confirmPassword)) {
-    //   errs.push(ERR_CONFIRM_PASS)
-    // }
 
     const body = {
       firstName: userData.firstName,

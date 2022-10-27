@@ -56,7 +56,9 @@ export const SEARCH_MESSAGE = 'Search Student, Faculty or other system users by 
 export const USER_ID_NOT_CORRECT = 'User id provided is not in correct format'
 export const STUDENT_COURSES = 'Student Courses'
 export const COURSE_CODE = 'Course Code'
+export const COURSE_CREDIT = 'Course Credit'
 export const COURSE = 'Course'
+export const VIEW = 'View'
 
 export const ERR_EMAIL = 'Invalid email format'
 export const ERR_USER_ID = 'User ID should must be 6 digits'
@@ -74,4 +76,4 @@ export const COURSE_LEVEL = 'Course Level'
 export const COURSE_BUTTON = 'Create'
 
 export const COURSE_NUMBER_ERROR = 'Course Number can not be greater than 300 or less than 599'
-
+export const LIST_OF_COURSES = 'List of Courses'

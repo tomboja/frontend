@@ -4,7 +4,7 @@
 
 import React from "react"
 
-import { CREATE_COURSE, LOGOUT, HOME } from "../../texts"
+import { CREATE_COURSE, LOGOUT, HOME, COURSE_OFFERINGS } from "../../texts"
 import { NavLink } from "react-router-dom"
 import { initialState } from "../../store/activeUserInitialState"
 import { useDispatch, useSelector } from "react-redux"
@@ -24,6 +24,7 @@ const RegistrarNav = () => {
   return <>
     <li><NavLink to="/" className="menuItem">{HOME}</NavLink></li>
     <li><NavLink to="/create_course" className="menuItem">{CREATE_COURSE}</NavLink></li>
+    <li><NavLink to="/courses_list" className="menuItem">{COURSE_OFFERINGS}</NavLink></li>
     <li className="logout">{role ?
       <span
         onClick={handleLogout}

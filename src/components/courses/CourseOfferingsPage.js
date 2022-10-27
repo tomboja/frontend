@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { getAllCourse } from "../../api/courseAPIs"
 import { resetCourse, loadCourses } from "../../reducers/courseReducer"
 import { Link } from "react-router-dom"
-import { COURSE_DEPARTMENT, COURSE_ID, COURSE_CREDIT, COURSE_OFFERINGS, COURSE_TITLE, LIST_OF_COURSES, VIEW,COURSE_ACTION,COURSE_EDIT_BUTTON,COURSE_DELETE_BUTTON } from "../../texts"
-import {DELETE_COURSE_URL } from '../../consts'
+import { COURSE_DEPARTMENT, COURSE_ID, COURSE_CREDIT, COURSE_OFFERINGS, COURSE_TITLE, LIST_OF_COURSES, VIEW, COURSE_ACTION, COURSE_EDIT_BUTTON, COURSE_DELETE_BUTTON } from "../../texts"
+import { DELETE_COURSE_URL } from '../../consts'
 import CourseDetail from "./CourseDetails"
 import CourseUpdate from "./CourseUpdate"
 
@@ -26,7 +26,7 @@ export const CourseOfferings = () => {
       }).catch(error => {
         console.log('Error fetching ', error)
       })
-    
+
     return () => {
       dispatch(resetCourse())
     }
@@ -41,11 +41,11 @@ export const CourseOfferings = () => {
   }
   const renderCourseDelete = (course) => {
     setDeleteCourse(course)
-    return <CourseUpdate updateCourse={updateCourse}/>
+    return <CourseUpdate updateCourse={updateCourse} />
   }
 
   const onDelete = (courseNumber) => {
-    axios.delete(DELETE_COURSE_URL+"/"+courseNumber)
+    axios.delete(DELETE_COURSE_URL + "/" + courseNumber)
   }
 
   if (selectedCourse) {
@@ -81,8 +81,8 @@ export const CourseOfferings = () => {
               <td className="tabledata">
                 <Link onClick={() => renderCourseDetails(course)} className="btn btn-prime">{VIEW}</Link>
                 <Link onClick={() => renderCourseUpdate(course)} className="btn btn-prime">{COURSE_EDIT_BUTTON}</Link>
-                <Link  onClick={() => onDelete(course.courseNumber)} className="btn btn-danger">{COURSE_DELETE_BUTTON}</Link>
-              
+                <Link onClick={() => onDelete(course.courseNumber)} className="btn btn-danger">{COURSE_DELETE_BUTTON}</Link>
+
               </td>
             </tr>
           })

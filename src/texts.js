@@ -28,7 +28,7 @@ export const SEARCH = 'Search'
 export const SEARCH_BY_USER_ID = 'Search By User Id'
 export const SALARY = 'Salary'
 export const HIRE_DATE = 'Hire Date'
-export const DEPARTMENT = 'Department'
+export const DEPARTMENT = 'Course Level'
 
 export const ERROR_DURING_LOGIN = 'Error logging to the system. Try again'
 export const ERROR_DURING_REGISTER = 'Error registering. Please Try again'
@@ -51,7 +51,7 @@ export const REGISTER = 'Register'
 export const COURSE_DETAIL = "Course Detail"
 export const COURSE_ID = "Course Id"
 export const COURSE_TITLE = "Course Title"
-export const COURSE_DEPARTMENT = "Department"
+export const COURSE_DEPARTMENT = "Course Level"
 export const SEARCH_MESSAGE = 'Search Student, Faculty or other system users by user id.'
 export const USER_ID_NOT_CORRECT = 'User id provided is not in correct format'
 export const STUDENT_COURSES = 'Student Courses'
@@ -79,10 +79,7 @@ export const COURSE_DELETE_BUTTON = 'DELETE'
 
 export const COURSE_ACTION = 'ACTION'
 
-
 export const COURSE_NUMBER_ERROR = 'Course Number can not be greater than 300 or less than 599'
-
-
 
 export const MAKE_PAYMENT = "Make Payment"
 export const CARD_NUMBER = "Card Number"
@@ -90,8 +87,6 @@ export const CARD_NAME = "Name on the Card"
 export const CARD_PIN = "ENTER CVV code"
 export const CARD_EXPIRE_DATE = "Enter Expire Month/Year"
 export const PAYMENT_BUTTON = "Pay"
-
-
 
 export const LIST_OF_COURSES = 'List of Courses'
 

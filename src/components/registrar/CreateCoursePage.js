@@ -17,7 +17,7 @@ const CreateCoursePage = () => {
     }
     const [courseData, setCourseData] = useState(initialState)
     const [errors, setError] = useState([])
-    const [success, setSuccess] = useState()
+    const [success, setSuccess] = useState(null)
     const courseNumberRef = useRef()
 
     const [show, setShow] = useState(false);
@@ -137,9 +137,8 @@ const CreateCoursePage = () => {
                     className='btn btn-prime'>{COURSE_BUTTON}</button>
             </form>
             
-            
-
-            <Modal show={show} onHide={handleClose} animation={false}>
+            { success &&
+                <Modal show={show} onHide={handleClose} animation={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>Course with following information created</Modal.Title>
                 </Modal.Header>
@@ -154,7 +153,7 @@ const CreateCoursePage = () => {
                         Close
                     </Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal>}
         </div>
     )
 }

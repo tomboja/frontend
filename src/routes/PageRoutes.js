@@ -43,6 +43,7 @@ const PageRoutes = () => {
         <Route path='/aboutus' element={<AboutPage />}></Route>
         <Route path="/createUser" element={<RegistrationPage />}></Route>
         <Route path="/searchUser" element={<SearchUser />}></Route>
+        <Route path="/courses_list" element={<CourseOfferings />}/>
       </Routes>
     </>
   )

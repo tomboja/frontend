@@ -14,6 +14,8 @@ import RolebaseHomepage from "../componentUtils/homepageBasedOnRole"
 import CreateCoursePage from "../components/registrar/CreateCoursePage"
 import StudentCourseOfferings from "../components/courses/StudentCourseOfferingsPage"
 import Payment from "../components/payment/Payment"
+import SearchUser from "../components/admin/SearchUser"
+
 
 const PageRoutes = () => {
   const activeUser = useSelector(state => state.activeUser)
@@ -40,6 +42,7 @@ const PageRoutes = () => {
         <Route path='/create_course' element={<CreateCoursePage />}></Route>
         <Route path='/aboutus' element={<AboutPage />}></Route>
         <Route path="/createUser" element={<RegistrationPage />}></Route>
+        <Route path="/searchUser" element={<SearchUser />}></Route>
       </Routes>
     </>
   )

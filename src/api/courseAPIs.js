@@ -43,11 +43,19 @@ export const courseDetails = async (courseId) => {
 
 }
 
-
 export const createCourse = async (course) => {
-  return await axios.post(CREATE_COURSE_URL, course)
-    .then(result => result.data)
-    .catch(error => error.message)
+  const response = {
+    data: '',
+    error: null
+  }
+  await axios.post(CREATE_COURSE_URL, course)
+    .then(result => {
+      response.data = result.data
+    })
+    .catch(error => {
+      response.error = error.message
+    })
+  return response
 }
 
 export const updateCourse = async (course) => {

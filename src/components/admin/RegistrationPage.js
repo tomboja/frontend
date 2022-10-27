@@ -6,9 +6,11 @@ import { ADDMISSION_DATE, CITY, DATE_OF_BIRTH, DEPARTMENT, EMAIL, ERR_DOB, ERR_P
 import { createUser } from '../../api/userApi'
 import { roleWithoutAdmin } from '../../mapping/dataMapping'
 import { STUDENT_USER } from '../../consts'
+import { useNavigate } from 'react-router-dom'
 
 const RegistrationPage = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const initialState = {
     firstName: '',
     lastName: '',
@@ -163,9 +165,12 @@ const RegistrationPage = () => {
       body.department = userData.department
     }
     setErrors([...errors, ...errs])
-    const result = await createUser(body)
-    dispatch(saveUser(userData))
-    setUserData(initialState)
+    if (errs.length === 0) {
+      const result = await createUser(body)
+      dispatch(saveUser(userData))
+      setUserData(initialState)
+      navigate('/searchUser')
+    }
   }
 
   const extraFields = (
@@ -317,7 +322,7 @@ const RegistrationPage = () => {
               value={role.value}>{role.label}</option>)}
           </select>
         </div>
-        {userData.role === STUDENT_USER ? '' : extraFields}
+        {userData.role === STUDENT_USER ? null : extraFields}
         <div className='mb-3'>
           <label
             htmlFor='phone'
@@ -343,19 +348,20 @@ const RegistrationPage = () => {
             required
             value={userData.dateOfBirth} />
         </div>
-        <div className='mb-3'>
-          <label
-            htmlFor='admitdate'
-            className='form-label'><b>{ADDMISSION_DATE}</b></label>
-          <input
-            onChange={setAdmitDate}
-            className='form-control'
-            type='date'
-            placeholder={ADDMISSION_DATE}
-            name='admitdate'
-            required
-            value={userData.admissionDate} />
-        </div>
+        {userData.role === STUDENT_USER ?
+          <div className='mb-3'>
+            <label
+              htmlFor='admitdate'
+              className='form-label'><b>{ADDMISSION_DATE}</b></label>
+            <input
+              onChange={setAdmitDate}
+              className='form-control'
+              type='date'
+              placeholder={ADDMISSION_DATE}
+              name='admitdate'
+              required
+              value={userData.admissionDate} />
+          </div> : null }
         {/* <div className='mb-3'>
           <label
             htmlFor='psw'

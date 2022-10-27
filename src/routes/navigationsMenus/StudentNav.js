@@ -23,7 +23,7 @@ const StudentNav = () => {
   }
 
   return <>
-    <li><NavLink to="/" className="menuItem">{HOME}</NavLink></li>
+    {/* <li><NavLink to="/" className="menuItem">{HOME}</NavLink></li> */}
     <li><NavLink to="/courses" className="menuItem">{COURSE_OFFERINGS}</NavLink></li>
     <li><NavLink to="/my_course_offerings" className="menuItem">{MY_COURSE_OFFERINGS}</NavLink></li>
     <li className="logout">{role ?

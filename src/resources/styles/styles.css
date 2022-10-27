@@ -26,7 +26,12 @@ tbody tr {
   padding-top: 10px;
 }
 
-
 .coursedetails {
   font-weight: bold;
 }
+
+.foundUser {
+  margin-top: 16px;
+  font-weight: bold;
+}
+

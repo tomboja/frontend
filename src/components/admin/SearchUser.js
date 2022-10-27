@@ -14,7 +14,7 @@ const SearchUser = () => {
   
   const validateUserId = (userId) => {
     // UserId Valid Logic
-    return userId.length === 6
+    return userId.length === 9
   }
 
   useEffect(() => {
@@ -37,27 +37,40 @@ const SearchUser = () => {
       setError(null)
       const userInfo = await getUserById(userId)
       dispatch(setSelectedUser(userInfo))
+      setFoundUser(userInfo)
     } else {
       setError(USER_ID_NOT_CORRECT)
     }
   }
 
   return <div>
-    <form onSubmit={searchUserById}>
+    <form className="row g-3" onSubmit={searchUserById}>
       {error ? <ErrorComponent
         style={{display: 'flex'}}
         errorId='searchUserError'
         errorMessage={error} />
         : null}
-      
-      <input
-        className="searchUser"
-        type='text'
-        onChange={searchUser}
-        value={userId}
-        placeholder={SEARCH_BY_USER_ID} />
-      <button type="submit">{SEARCH}</button>
+      <div className="col">
+        <input
+          className="form-control"
+          type='search'
+          onChange={searchUser}
+          value={userId}
+          placeholder={SEARCH_BY_USER_ID} />
+      </div>
+      <div className="col">
+        <button className="btn btn-prime" type="submit">{SEARCH}</button>
+      </div>
     </form>
+    {foundUser ? <div className="foundUser">
+      <p>User details found in database: </p>
+      <div>User Number: {foundUser.userNumber}</div>
+      <div>First Name: {foundUser.firstName}</div>
+      <div>Last Name: {foundUser.lastName}</div>
+      <div>User Email: {foundUser.email}</div>
+      <div>Addmission Date: {foundUser.admissionDate}</div>
+      <div>Addmission Date: {foundUser.phone_number}</div>
+    </div> : null}
   </div>
 }
 

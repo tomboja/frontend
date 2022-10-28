@@ -26,26 +26,12 @@ const FacultyNav = () => {
   return <>
     {/* <li><NavLink to="/" className="menuItem col">{HOME}</NavLink></li> */}
     {/* <li><NavLink to="/courseOfferings" className="menuItem">{COURSE_OFFERINGS}</NavLink></li>*/}
-    <li className="nav-item dropdown">
-      <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Create
-      </a>
-      <ul className="dropdown-menu">
-        <li><NavLink className="dropdown-item" to='/create_quiz' >Quiz</NavLink></li>
-        <li><a className="dropdown-item" href="#">Test</a></li>
-        <li><a className="dropdown-item" href="#">Homework</a></li>
-      </ul>
+    <li className="nav-item">
+      <NavLink className="nav-link" to='/create_quiz'>Create Quiz</NavLink>
     </li>
-    <li className="nav-item dropdown">
-      <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Assign
-      </a>
-      <ul className="dropdown-menu">
-        <li><a className="dropdown-item" href="#">Quiz</a></li>
-        <li><a className="dropdown-item" href="#">Test</a></li>
-        <li><a className="dropdown-item" href="#">Homework</a></li>
-      </ul>
-    </li>
+    {/* <li className="nav-item">
+      <NavLink className="nav-link" to='/assign_quiz'>Assign Quiz</NavLink>
+    </li> */}
     {/* <li className="logout nav-item">{role ?
       <span
         onClick={handleLogout}

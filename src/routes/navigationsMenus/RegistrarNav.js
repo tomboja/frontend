@@ -14,7 +14,6 @@ const RegistrarNav = () => {
   const activeUser = useSelector(state => state.activeUser)
   const { role } = activeUser
   const dispatch = useDispatch()
-
   const handleLogout = () => {
     // TODO: 1. Make API call to invalidate user's access_token
     // 2. Clean active user redux store

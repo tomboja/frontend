@@ -53,7 +53,8 @@ const CourseUpdate = (props) => {
             courseNumber: courseData.courseNumber,
             title: courseData.title,
             level: courseData.level,
-            credit: courseData.creditHours
+            credit: courseData.creditHours,
+            orignialCourse:props.updateCourse.courseNumber
         }
         const result = await updateCourse(reqBody)
     }

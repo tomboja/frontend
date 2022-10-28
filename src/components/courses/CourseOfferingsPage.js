@@ -5,11 +5,13 @@ import { getAllCourse } from "../../api/courseAPIs"
 import { resetCourse, loadCourses } from "../../reducers/courseReducer"
 import { Link } from "react-router-dom"
 import { COURSE_DEPARTMENT, COURSE_ID, COURSE_CREDIT, COURSE_OFFERINGS, COURSE_TITLE, LIST_OF_COURSES, VIEW, COURSE_ACTION, COURSE_EDIT_BUTTON, COURSE_DELETE_BUTTON } from "../../texts"
-import { DELETE_COURSE_URL } from '../../consts'
+import { DELETE_COURSE_URL, REGISTRAR_USER } from '../../consts'
 import CourseDetail from "./CourseDetails"
 import CourseUpdate from "./CourseUpdate"
 
 export const CourseOfferings = () => {
+  const activeUser = useSelector(state => state.activeUser)
+  const { role } = activeUser
   const dispatch = useDispatch();
   const [courses, setCourse] = useState([])
   const [selectedCourse, setSelectedCourse] = useState(null)
@@ -79,9 +81,15 @@ export const CourseOfferings = () => {
               <td className="tabledata">{course.level}</td>
               <td className="tabledata">{course.credit}</td>
               <td className="tabledata">
+              
+                
                 <Link onClick={() => renderCourseDetails(course)} className="btn btn-prime">{VIEW}</Link>
+                
+                { role == REGISTRAR_USER && <>
                 <Link onClick={() => renderCourseUpdate(course)} className="btn btn-prime">{COURSE_EDIT_BUTTON}</Link>
+                
                 <Link onClick={() => onDelete(course.courseNumber)} className="btn btn-danger">{COURSE_DELETE_BUTTON}</Link>
+                </>}
 
               </td>
             </tr>

@@ -60,7 +60,7 @@ export const createCourse = async (course) => {
 
 export const updateCourse = async (course) => {
   console.log(' Course : ', course)
-  return await axios.put(CREATE_COURSE_URL+"/"+course.courseNumber, course)
+  return await axios.put(CREATE_COURSE_URL+"/"+course.orignialCourse, course)
     .then(result => result.data)
     .catch(error => error.message)
 }

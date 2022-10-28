@@ -12,25 +12,25 @@ import { initialState } from "../../store/activeUserInitialState"
 import '../../resources/styles/styles.css'
 
 const StudentNav = () => {
-  const activeUser = useSelector(state => state.activeUser)
-  const { role } = activeUser
-  const dispatch = useDispatch()
+  // const activeUser = useSelector(state => state.activeUser)
+  // const { role } = activeUser
+  // const dispatch = useDispatch()
 
-  const handleLogout = (user) => {
-    // TODO: 1. Make API call to invalidate user's access_token
-    // 2. Clean active user redux store
-    dispatch(logout(initialState))
-  }
+  // const handleLogout = (user) => {
+  //   // TODO: 1. Make API call to invalidate user's access_token
+  //   // 2. Clean active user redux store
+  //   dispatch(logout(initialState))
+  // }
 
   return <>
     {/* <li><NavLink to="/" className="menuItem">{HOME}</NavLink></li> */}
-    <li><NavLink to="/courses" className="menuItem">{COURSE_OFFERINGS}</NavLink></li>
-    <li><NavLink to="/my_course_offerings" className="menuItem">{MY_COURSE_OFFERINGS}</NavLink></li>
-    <li className="logout">{role ?
+    <li className="nav-item"><NavLink to="/courses" className="nav-link menuItem">{COURSE_OFFERINGS}</NavLink></li>
+    <li className="nav-item"><NavLink to="/my_course_offerings" className="nav-link menuItem">{MY_COURSE_OFFERINGS}</NavLink></li>
+    {/* <li className="logout">{role ?
       <span
         onClick={handleLogout}
         className="menuItem">{LOGOUT}</span>
-      : null}</li>
+      : null}</li> */}
   </>
 }
 

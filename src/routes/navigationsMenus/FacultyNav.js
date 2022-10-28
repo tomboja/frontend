@@ -31,7 +31,7 @@ const FacultyNav = () => {
         Create
       </a>
       <ul className="dropdown-menu">
-        <li><a className="dropdown-item" href="#">Quiz</a></li>
+        <li><NavLink className="dropdown-item" to='/create_quiz' >Quiz</NavLink></li>
         <li><a className="dropdown-item" href="#">Test</a></li>
         <li><a className="dropdown-item" href="#">Homework</a></li>
       </ul>

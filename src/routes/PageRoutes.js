@@ -5,7 +5,7 @@ import LoginPage from "../components/admin/LoginPage"
 import CourseOfferings from "../components/courses/CourseOfferingsPage"
 import AboutPage from "../components/admin/AboutPage"
 import CreateQuizPage from "../components/faculty/CreateQuizPage"
-import { ABC_UNIVERSITY, LOGOUT } from "../texts"
+import { ABC_UNIVERSITY, COURSE_OFFERINGS, ABOUT_US, LOGOUT } from "../texts"
 import UserMenus from "./UserMenus"
 import RegistrationPage from "../components/admin/RegistrationPage"
 import { useDispatch, useSelector } from "react-redux"
@@ -49,11 +49,16 @@ const PageRoutes = () => {
                 <NavLink to="/" className="nav-link">Home</NavLink>
                 {/* <a className="nav-link active" aria-current="page" href="#">Home</a> */}
               </li>
-              <li className="nav-item">
-                <NavLink to="/aboutus" className="nav-link">About</NavLink>
-                {/* <a className="nav-link" href="#">About</a> */}
-              </li>
+              {/* <li className="nav-item">
+                 <a className="nav-link" href="#">About</a>
+              </li> */}
               <UserMenus />
+              <li className="nav-item">
+                <NavLink to="/courses" className="nav-link menuItem">{COURSE_OFFERINGS}</NavLink>
+              </li>
+              <li>
+                <NavLink to="/aboutus" className="nav-link">{ABOUT_US}</NavLink>
+              </li>
             </ul>
             <ul className="logout navbar-nav">
               <li className="nav-item">

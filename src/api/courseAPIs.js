@@ -59,8 +59,37 @@ export const createCourse = async (course) => {
 }
 
 export const updateCourse = async (course) => {
-  console.log(' Course : ', course)
   return await axios.put(CREATE_COURSE_URL+"/"+course.courseNumber, course)
     .then(result => result.data)
     .catch(error => error.message)
+}
+
+export const getAllCourses = async () => {
+  const response = {}
+  await axios.get(COURSE_API_URI).then(result => {
+    response.data = result.data
+  }).catch(error => {
+    response.error = error.message
+  })
+  return response
+}
+
+export const saveCourseOffering = async (offerings) => {
+  const response = {}
+  const body = {
+    start: offerings.startDate,
+    end: offerings.endDate,
+    roomNumber: offerings.classroom,
+    capacity: 30
+  }
+  await axios.post(`http://localhost:8082/api/v1/registration/offers/${offerings.courseNumber}/${offerings.faculty}`, body)
+    .then(result =>{
+      response.data = result.data
+    })
+    .catch(error => {
+      response.error = error.message
+    })
+
+  return response
+
 }

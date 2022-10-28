@@ -20,9 +20,9 @@ const CreateCoursePage = () => {
     const [success, setSuccess] = useState(null)
     const courseNumberRef = useRef()
 
-    const [show, setShow] = useState(false);
+    const [show, setShowModal] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => setShowModal(false);
 
     const setCourseNumber = (e) => {
         const val = e.target.value
@@ -58,7 +58,7 @@ const CreateCoursePage = () => {
             } else {
                 setError({ fail: null })
                 setSuccess({ ...result.data })
-                setShow(true)
+                setShowModal(true)
                 setCourseData(initialState)
             }
         })
@@ -66,7 +66,6 @@ const CreateCoursePage = () => {
 
     return (
         <div className="container">
-            {console.log('***** ', success)}
             <h4>{COURSE_HEADING}</h4>
             <form onSubmit={handleSubmit}>
                 <div className='mb-3'>

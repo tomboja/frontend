@@ -73,3 +73,16 @@ ul li .active {
 .bg-prime {
   background-color: rgb(127, 176, 245);
 }
+
+.dateWidth {
+  width: 200px;
+}
+
+.createbutton {
+  margin-top: 20px;
+  margin-left: 100px;
+}
+
+.courseOffering {
+  width: 80% !important;
+}

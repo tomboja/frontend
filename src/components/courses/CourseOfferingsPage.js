@@ -70,7 +70,6 @@ export const CourseOfferings = () => {
         </tr>
       </thead>
       <tbody>
-        {console.log('coursesFromReduxStore ', coursesFromReduxStore)}
         {
 
           coursesFromReduxStore.map((course, index, array) => {

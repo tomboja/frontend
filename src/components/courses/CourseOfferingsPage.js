@@ -18,19 +18,20 @@ export const CourseOfferings = () => {
   const [updateCourse, setUpdateCourse] = useState(null)
   const [deleteCourse, setDeleteCourse] = useState(null)
   const coursesFromReduxStore = useSelector(state => state.courseData)
+  const coursesDataInRedux = useSelector(state => state.courseData)
 
   useEffect(() => {
     const fetchCourses = async () => await getAllCourse()
     fetchCourses()
       .then(result => {
         dispatch(loadCourses(result))
-        setCourse(result)
+        setCourse(coursesDataInRedux)
       }).catch(error => {
         console.log('Error fetching ', error)
       })
 
     return () => {
-      dispatch(resetCourse())
+      //dispatch(resetCourse())
     }
   }, [dispatch])
 

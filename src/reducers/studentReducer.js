@@ -15,8 +15,8 @@ const initialState = [{
   ]
 }]
 
-const userReducer = createSlice({
-  name: 'userData',
+const studentReducer = createSlice({
+  name: 'studentData',
   initialState,
   reducers: {
     saveUser: (userData, action) => {
@@ -28,6 +28,6 @@ const userReducer = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { saveUser, deleteUser, loadUsers } = userReducer.actions
+export const { saveUser, deleteUser, loadUsers } = studentReducer.actions
 
-export default userReducer.reducer
+export default studentReducer.reducer

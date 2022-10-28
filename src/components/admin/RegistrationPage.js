@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { validateDateOfBirth, validatePhone, validateZip, validateEmail } from '../../utils/formUtils'
-import { saveUser } from '../../reducers/userReducer'
+import { saveUser } from '../../reducers/studentReducer'
 import { ADDMISSION_DATE, CITY, DATE_OF_BIRTH, DEPARTMENT, EMAIL, ERR_DOB, ERR_PHONE, ERR_USER_ID, ERR_ZIP, FIRST_NAME, HIRE_DATE, LAST_NAME, PHONE_NUMBER, REGISTER, ROLE, SALARY, STATE, STREET, STUDENT_REGISTRATION_TXT, ZIP } from '../../texts'
 import { createUser } from '../../api/userApi'
 import { roleWithoutAdmin } from '../../mapping/dataMapping'

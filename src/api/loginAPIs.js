@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ERROR_DURING_LOGIN } from "../texts"
-import {CREATE_USER_URL} from "../consts"
+import { CREATE_STUDENT_URL } from "../consts"
 
 export const loginUserApi = async (body) => {
   return await axios.get('https://www.boredapi.com/api/activity', body)

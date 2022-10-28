@@ -7,7 +7,6 @@ import UserDetailComponent from "./UserDetails";
 
 const AdminPage = () => {
   const selectedUser = useSelector(state => state.selectedUser)
-  console.log('Selected User: ', selectedUser)
   return <div className="container">
     <h3 className="searchMessage">{SEARCH_MESSAGE}</h3>
     <SearchUser />

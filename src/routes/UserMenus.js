@@ -20,7 +20,7 @@ const UserMenus = () => {
   if (user.role === ADMIN_USER) return <AdminNav />
   if (user.role === FACULTY_USER) return <FacultyNav />
   if (user.role === REGISTRAR_USER) return <RegistrarNav />
-  else return <DefaultNav />
+  // else return <DefaultNav />
 
 }
 

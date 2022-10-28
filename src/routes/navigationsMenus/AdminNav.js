@@ -11,24 +11,23 @@ import { initialState } from "../../store/activeUserInitialState"
 import { logout } from "../../reducers/loginReducer"
 
 const AdminNav = () => {
-  const activeUser = useSelector(state => state.activeUser)
-  const { role } = activeUser
-  const dispatch = useDispatch()
+  //const activeUser = useSelector(state => state.activeUser)
+  // const { role } = activeUser
+  // const dispatch = useDispatch()
   
-  const handleLogout = () => {
-    // TODO: 1. Make API call to invalidate user's access_token
-    // 2. Clean active user redux store
-    dispatch(logout(initialState))
-  }
+  // const handleLogout = () => {
+  //   // TODO: 1. Make API call to invalidate user's access_token
+  //   // 2. Clean active user redux store
+  //   dispatch(logout(initialState))
+  // }
 
   return <>
-    <li><NavLink to="/" className="menuItem">{HOME}</NavLink></li>
-    <li><NavLink to="/createUser" className="menuItem">{CREATE_USER}</NavLink></li>
-    <li className="logout">{role ?
+    <li className="nav-item"><NavLink to="/createUser" className="nav-link menuItem">{CREATE_USER}</NavLink></li>
+    {/* <li className="logout">{role ?
       <span
         onClick={handleLogout}
         className="menuItem">{LOGOUT}</span>
-      : null}</li>
+      : null}</li> */}
   </>
 }
 

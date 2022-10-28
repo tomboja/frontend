@@ -70,7 +70,7 @@ const LoginPage = () => {
 
   return (
     <div className='container'>
-      <h4>{WELCOME_MESSAGE}</h4>
+      <h4 className='mt-3'>{WELCOME_MESSAGE}</h4>
       <form className='row border loginForm' onSubmit={handleSubmit}>
         <h4>{STUDENT_LOGIN_FORM_HEADING}</h4>
         <div className='row mb-6 loginField'>

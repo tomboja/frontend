@@ -49,7 +49,6 @@ const Payment = () => {
             expiry: cardData.expiry,
             enrolmentId: from
         }
-        console.log(from);
         const result = await makePayment(reqBody)
     }
 

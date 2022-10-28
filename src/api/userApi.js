@@ -40,7 +40,6 @@ export const createUser = async (body) => {
       data = res.data
     })
     .catch(error => error.message)
-  console.log('Data: ', data)
   return data
 }
 
@@ -58,6 +57,5 @@ export const getAllUsersByRole = async (role) => {
   }).catch(error => {
     response.error = error.message
   })
-  console.log('RESPONSEEEE ', response)
   return response
 }

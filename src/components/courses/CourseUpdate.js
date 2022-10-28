@@ -4,8 +4,10 @@ import { useRef, useState } from "react"
 import { courseLevels } from "../../mapping/dataMapping"
 import '../../resources/styles/styles.css'
 import { updateCourse } from "../../api/courseAPIs"
-import { COURSE_CREDHOURS, COURSE_NUMBER, COURSE_TITLE, COURSE_LEVEL ,COURSE_EDIT_BUTTON, COURSE_HEADING} from "../../texts"
+import { COURSE_CREDHOURS, COURSE_NUMBER, COURSE_TITLE, COURSE_LEVEL ,COURSE_UPDATE_BUTTON, COURSE_HEADING} from "../../texts"
 
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 // const CourseUpdate = (props) => {
 
 //   return <div className="container">
@@ -26,6 +28,10 @@ const CourseUpdate = (props) => {
     const [courseData, setCourseData] = useState(initialState)
     const [errors, setError] = useState([])
     const courseNumberRef = useRef()
+    const [success, setSuccess] = useState(null)
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
 
     const setCourseNumber = (e) => {
         const val = e.target.value
@@ -56,8 +62,21 @@ const CourseUpdate = (props) => {
             credit: courseData.creditHours,
             orignialCourse:props.updateCourse.courseNumber
         }
-        const result = await updateCourse(reqBody)
+        // const result = await updateCourse(reqBody)
+        await updateCourse(reqBody).then(result => {
+            console.log(result)
+            if (result.error) {
+                setError({ fail: result.error })
+            } else {
+                setError({ fail: null })
+                setSuccess({ ...result.data })
+                setShow(true)
+                setCourseData(result)
+            }
+        })
     }
+
+    
 
     return (
         <div className="container">
@@ -71,6 +90,7 @@ const CourseUpdate = (props) => {
                     <input
                         onChange={setCourseNumber}
                         className='form-control'
+                        readOnly 
                         type='text'
                         placeholder={COURSE_NUMBER}
                         name='cid'
@@ -111,19 +131,38 @@ const CourseUpdate = (props) => {
                         htmlFor='dept'
                         className='form-label'><b>{COURSE_LEVEL}</b>
                     </label>
-                    <select
+                    <input
                         onChange={setCourseLevel}
                         className='form-select'
                         name='course_level'
-                        value={courseData.level}>
-                        {courseLevels.map(level => <option
+                        readOnly
+                        value={courseData.level}/>
+                        {/* {courseLevels.map(level => <option
                             key={level.label}
-                            value={level.value}>{level.label}</option>)}
-                    </select>
+                            value={level.value}>{level.label}</option>)} */}
+                   
                 </div>
                 { }
-                <button type='submit' className='btn btn-prime'>{COURSE_EDIT_BUTTON}</button>
+                <button type='submit' className='btn btn-prime'>{COURSE_UPDATE_BUTTON}</button>
             </form>
+            { success &&
+                <Modal show={show} onHide={handleClose} animation={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Course with following information created</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {/* <div><span>Course Number: </span> {success.courseNumber}</div>
+                    <div><span>Course Title: </span> {success.title}</div>
+                    <div><span>Course Credits: </span> {success.creditHours}</div>
+                    <div><span>Course Level: </span> {success.level}</div> */}
+                    Course Information Updated Successfully
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>}
         </div>
     )
 }

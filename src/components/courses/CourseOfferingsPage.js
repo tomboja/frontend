@@ -11,6 +11,7 @@ import CourseUpdate from "./CourseUpdate"
 
 export const CourseOfferings = () => {
   const activeUser = useSelector(state => state.activeUser)
+  const [errors, setErrors] = useState("")
   const { role } = activeUser
   const dispatch = useDispatch();
   const [courses, setCourse] = useState([])
@@ -20,19 +21,36 @@ export const CourseOfferings = () => {
   const coursesFromReduxStore = useSelector(state => state.courseData)
   const coursesDataInRedux = useSelector(state => state.courseData)
 
-  useEffect(() => {
-    const fetchCourses = async () => await getAllCourse()
-    fetchCourses()
-      .then(result => {
-        dispatch(loadCourses(result))
-        setCourse(coursesDataInRedux)
-      }).catch(error => {
-        console.log('Error fetching ', error)
-      })
 
-    return () => {
-      //dispatch(resetCourse())
-    }
+  useEffect(() => {
+    // const fetchCourses = async () => await getAllCourse()
+    // fetchCourses()
+    //   .then(result => {
+    //     dispatch(loadCourses(result))
+    //     setCourse(coursesDataInRedux)
+    //   }).catch(error => {
+    //     console.log('Error fetching ', error)
+    //   })
+
+    // return () => {
+    //   //dispatch(resetCourse())
+    // }
+    const fetchCourses = async () => await getAllCourse()
+
+    .then(result => {
+
+      if (result.error) {
+
+        setErrors({ fetchingCoursesfailed: 'Fetching courses failed ' + result.error })
+
+      } else {
+
+        dispatch(loadCourses(result.data))
+
+      }
+
+    })
+    fetchCourses()
   }, [dispatch])
 
   const renderCourseDetails = (course) => {

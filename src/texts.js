@@ -75,6 +75,7 @@ export const COURSE_CREDHOURS = 'Credit Hours'
 export const COURSE_LEVEL = 'Course Level'
 export const COURSE_BUTTON = 'Create'
 export const COURSE_EDIT_BUTTON = 'EDIT'
+export const COURSE_UPDATE_BUTTON = 'UPDATE'
 export const COURSE_DELETE_BUTTON = 'DELETE'
 
 export const COURSE_ACTION = 'ACTION'

@@ -145,7 +145,7 @@ const CreateCoursePage = () => {
                 <Modal.Body>
                     <div><span>Course Number: </span> {success.courseNumber}</div>
                     <div><span>Course Title: </span> {success.title}</div>
-                    <div><span>Course Credits: </span> {success.creditHours}</div>
+                    <div><span>Course Credits: </span> {success.credit}</div>
                     <div><span>Course Level: </span> {success.level}</div>
                 </Modal.Body>
                 <Modal.Footer>
